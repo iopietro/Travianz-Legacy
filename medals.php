@@ -208,7 +208,7 @@ if (mysql_num_rows(mysql_query("SELECT id FROM ".TB_PREFIX."users WHERE access =
 			$row1=0;
 			$i=$array1['week'];
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 2 AND plaats<=3 AND week = $i";
-			while(mysql_num_rows(mysql_query($query2)) > 0 && $i > 0){
+			while( (mysql_num_rows(mysql_query($query2)) && mysql_num_rows(mysql_query($query2)) > 0) && $i > 0){
 			$row1++;
 			$i--;
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 2 AND plaats<=3 AND week = $i";
@@ -246,7 +246,7 @@ if (mysql_num_rows(mysql_query("SELECT id FROM ".TB_PREFIX."users WHERE access =
 			$row1=0;
 			$i=$array1['week'];
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 2 AND plaats<=10 AND week = $i";
-			while(mysql_num_rows(mysql_query($query2)) > 0 && $i > 0){
+                        while( (mysql_num_rows(mysql_query($query2)) && mysql_num_rows(mysql_query($query2)) > 0) && $i > 0){
 			$row1++;
 			$i--;
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 2 AND plaats<=10 AND week = $i";
@@ -285,7 +285,7 @@ if (mysql_num_rows(mysql_query("SELECT id FROM ".TB_PREFIX."users WHERE access =
 			$row1=0;
 			$i=$array1['week'];
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 3 AND plaats<=3 AND week = $i";
-			while(mysql_num_rows(mysql_query($query2)) > 0 && $i > 0){
+			while( (mysql_num_rows(mysql_query($query2)) && mysql_num_rows(mysql_query($query2)) > 0) && $i > 0){
 			$row1++;
 			$i--;
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 3 AND plaats<=3 AND week = $i";
@@ -359,7 +359,7 @@ if (mysql_num_rows(mysql_query("SELECT id FROM ".TB_PREFIX."users WHERE access =
 			$row1=0;
 			$i=$array1['week'];
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 10 AND plaats<=3 AND week = $i";
-			while(mysql_num_rows(mysql_query($query2)) > 0 && $i > 0){
+			while( (mysql_num_rows(mysql_query($query2)) && mysql_num_rows(mysql_query($query2)) > 0) && $i > 0){
 			$row1++;
 			$i--;
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 10 AND plaats<=3 AND week = $i";
@@ -396,7 +396,7 @@ if (mysql_num_rows(mysql_query("SELECT id FROM ".TB_PREFIX."users WHERE access =
 			$row1=0;
 			$i=$array1['week'];
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 10 AND plaats<=10 AND week = $i";
-			while(mysql_num_rows(mysql_query($query2)) > 0 && $i > 0){
+			while( (mysql_num_rows(mysql_query($query2)) && mysql_num_rows(mysql_query($query2)) > 0) && $i > 0){
 			$row1++;
 			$i--;
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 10 AND plaats<=10 AND week = $i";
@@ -470,7 +470,7 @@ if (mysql_num_rows(mysql_query("SELECT id FROM ".TB_PREFIX."users WHERE access =
 			$row1=0;
 			$i=$array1['week'];
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 4 AND plaats<=10 AND week = $i";
-			while(mysql_num_rows(mysql_query($query2)) > 0 && $i > 0){
+			while( (mysql_num_rows(mysql_query($query2)) && mysql_num_rows(mysql_query($query2)) > 0) && $i > 0){
 			$row1++;
 			$i--;
 			$query2 = "SELECT * FROM ".TB_PREFIX."medal WHERE userid='".$row['id']."' AND categorie = 4 AND plaats<=10 AND week = $i";
