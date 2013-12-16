@@ -500,7 +500,7 @@ class Building {
 			if($this->getTypeLevel(18) >= 1 && $this->getTypeLevel(15) >= 5 && $this->getTypeLevel(25) == 0) { return true; } else { return false; }
 			break;
 			case 27:
-			if($this->getTypeLevel(15) >= 10) { return true; } else { return false; }
+			if($this->getTypeLevel(15) >= 10 && $village->capital == 0) { return true; } else { return false; }
 			break;
 			case 28:
 			if($this->getTypeLevel(17) == 20 && $this->getTypeLevel(20) >= 10) { return true; } else { return false; }
