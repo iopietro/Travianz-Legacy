@@ -3,7 +3,7 @@
 		<tbody><tr>
 			<td class="desc">The riches of your empire are kept in the treasury.
                             <br>The treasury has room for one treasure and, after you have captured an artefact, it takes 24 hours to be effective.
-                            <br><b>You cannot build a Treasury in your Capital!</b>
+                            <br><b>The treasury cannot be built in the Capital</b>
                         </td>
 			<td rowspan="3" class="bimg">
 				<a href="#" onClick="return Popup(27,4);">
