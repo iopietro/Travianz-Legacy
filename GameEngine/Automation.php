@@ -4740,7 +4740,12 @@ $wallimg = "<img src=\"".GP_LOCATE."img/g/g3".$targettribe."Icon.gif\" height=\"
         $q = "UPDATE ".TB_PREFIX."config SET lastgavemedal=".$newtime;
         $database->query($q);
         $row['lastgavemedal'] =  $newtime;
-        }
+        }else if ($row['lastgavemedal'] == 0 && $stime > time()){
+        $newtime = $stime;
+        $q = "UPDATE ".TB_PREFIX."config SET lastgavemedal=".$newtime;
+        $database->query($q);
+        $row['lastgavemedal'] = $newtime;
+       }
         $time = $row['lastgavemedal'] + MEDALINTERVAL;
         if ($time < time()) $giveMedal = true;
       }
