@@ -4736,7 +4736,7 @@ $wallimg = "<img src=\"".GP_LOCATE."img/g/g3".$targettribe."Icon.gif\" height=\"
         $row=mysql_fetch_assoc($result);
         $stime = strtotime(START_DATE)-strtotime(date('m/d/Y'))+strtotime(START_TIME);
         if($row['lastgavemedal'] == 0 && $stime < time()){
-        $newtime = time()
+        $newtime = time();
         $q = "UPDATE ".TB_PREFIX."config SET lastgavemedal=".$newtime;
         $database->query($q);
         $row['lastgavemedal'] =  $newtime;
