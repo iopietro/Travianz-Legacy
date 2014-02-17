@@ -4759,11 +4759,16 @@ $wallimg = "<img src=\"".GP_LOCATE."img/g/g3".$targettribe."Icon.gif\" height=\"
         $row=mysql_fetch_assoc($result);
         $stime = strtotime(START_DATE)-strtotime(date('m/d/Y'))+strtotime(START_TIME);
         if($row['lastgavemedal'] == 0 && $stime < time()){
-        $newtime = time()+MEDALINTERVAL;
+        $newtime = time();
         $q = "UPDATE ".TB_PREFIX."config SET lastgavemedal=".$newtime;
         $database->query($q);
-        $row['lastgavemedal'] = time()+MEDALINTERVAL;
-        }
+        $row['lastgavemedal'] =  $newtime;
+        }else if ($row['lastgavemedal'] == 0 && $stime > time()){
+        $newtime = $stime;
+        $q = "UPDATE ".TB_PREFIX."config SET lastgavemedal=".$newtime;
+        $database->query($q);
+        $row['lastgavemedal'] = $newtime;
+       }
         $time = $row['lastgavemedal'] + MEDALINTERVAL;
         if ($time < time()) $giveMedal = true;
       }
@@ -4814,21 +4819,21 @@ $wallimg = "<img src=\"".GP_LOCATE."img/g/g3".$targettribe."Icon.gif\" height=\"
     }   
 
     //Klimmers v/d Week
-      $result = mysql_query("SELECT * FROM ".TB_PREFIX."users ORDER BY Rc DESC, id DESC Limit 10");
-      $i=0;   
-    while($row = mysql_fetch_array($result)){
-    $i++;   
-    $img="t1_".($i)."";
-    $quer="insert into ".TB_PREFIX."medal(userid, categorie, plaats, week, points, img) values('".$row['id']."', '3', '".($i)."', '".$week."', '".$row['Rc']."', '".$img."')";
-    $resul=mysql_query($quer);    
-    }   
+      //$result = mysql_query("SELECT * FROM ".TB_PREFIX."users ORDER BY Rc DESC, id DESC Limit 10");
+      //$i=0;   
+    //while($row = mysql_fetch_array($result)){
+    //$i++;   
+    //$img="t1_".($i)."";
+    //$quer="insert into ".TB_PREFIX."medal(userid, categorie, plaats, week, points, img) values('".$row['id']."', '3', '".($i)."', '".$week."', '".$row['Rc']."', '".$img."')";
+    //$resul=mysql_query($quer);    
+    //}   
 
       //Rank climbers of the week
       $result = mysql_query("SELECT * FROM ".TB_PREFIX."users ORDER BY clp DESC Limit 10");
       $i=0;     
     while($row = mysql_fetch_array($result)){
       $i++;    
-    $img="t6_".($i)."";
+    $img="t1_".($i)."";
       $quer="insert into ".TB_PREFIX."medal(userid, categorie, plaats, week, points, img) values('".$row['id']."', '10', '".($i)."', '".$week."', '".$row['clp']."', '".$img."')";
       $resul=mysql_query($quer);      
       }    
