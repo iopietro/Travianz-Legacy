@@ -15,7 +15,7 @@
         <th colspan="4"><?php echo BUILDING_UPGRADING;?>
 			<?php
             
-            if($session->gold >= 2) {
+            if($session->gold >= 2 && $session->plus) {
 			if($session->access!=BANNED){
             ?> <a href="?buildingFinish=1" onclick="return confirm('Finish all construction and research orders in this village immediately for 2 Gold?');" title="Finish all construction and research orders in this village immediately for 2 Gold?"><img class="clock" alt="Finish all construction and research orders in this village immediately for 2 Gold?" src="img/x.gif"/></a>
 			<?php
