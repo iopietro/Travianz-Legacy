@@ -148,11 +148,6 @@ class Units {
             $id = $generator->getBaseID($coor['x'],$coor['y']);
             if (!$database->getVillageState($id)){
                 $form->addError("error","Coordinates do not exist");
-				//check vaction mode- by advocaite
-			if($database->getvacmodexy($id)){
-			$form->addError("error","User is on vacation mode");
-			}
-				//END Vaction mode check
             }
         }   
         if (!empty($coor)) {    
@@ -188,6 +183,11 @@ class Units {
                 $userAccess = $database->getUserField($villageOwner,'access',0);
                     if($userAccess == '0' or $userAccess == '8' or $userAccess == '9'){
                                 $form->addError("error","Player is Banned. You can't attack him");
+                                //break;
+                    }
+                //check if vacation mode:
+                    if($database->getvacmodexy($id)){
+                                $form->addError("error","User is on vacation mode");
                                 //break;
                     }
 
