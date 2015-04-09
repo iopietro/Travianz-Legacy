@@ -48,6 +48,7 @@ if (isset($qact)){
 		//avoid hacking gold, resources or reward -- added by Ronix
 	}else {
 		switch($qact) {
+		if ($_SESSION['qst'] < $qact){
 		case 'enter':
 			$database->updateUserField($_SESSION['username'],'quest','1',0);
 			$_SESSION['qst']= 1;
@@ -400,7 +401,7 @@ if (isset($qact)){
 			$gold+=20;
 			$database->updateUserField($_SESSION['username'],'gold',$gold,0);
 			break;
-		}	
+		}}	
 	}
 }
 
