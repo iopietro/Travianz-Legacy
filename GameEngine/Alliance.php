@@ -154,7 +154,7 @@ class Alliance {
 				// send invitation via in-game messages
 				$database->sendMessage(
 				    $UserData['id'],
-				    2,
+				    1,
 				    'Alliance invitation.',
 				    $database->escape("Hi, ".$UserData['username']."!\n\nThis is to inform you that you have been invited to join an alliance. To accept this invitation, please visit your Embassy.\n\nYours sincerely,\n<i>Server Robot :)</i>"),
 				    0,
