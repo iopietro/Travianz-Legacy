@@ -180,76 +180,118 @@ class MYSQLi_DB implements IDbConnection {
 	 * @see \App\Database\IDbConnection::query_new()
 	 */
 	public function query_new($statement, ...$params) {
-	    // check for SELECT
-	    preg_match('/[^AZ-az]*(\()?[^AZ-az]*SELECT/i', $statement, $matches);	    
+	    if ($prep = mysqli_prepare($this->dblink, $statement)) {
+	        // if we're doing a multi-update/insert/delete query,
+	        // we'll need to mark it as such
+	        $is_multi_query = false;
 
-	    // SELECT statement it is...
-	    if (count($matches)) {
-            if ($prep = mysqli_prepare($this->dblink, $statement)) {
-                // prepare all parameter types
-                $types = [];
+	        // determine the nature of this query
+	        preg_match('/[^AZ-az]*(\()?[^AZ-az]*SELECT/i', $statement, $select_matches);
+	        preg_match('/[^AZ-az]*(\()?[^AZ-az]*DELETE/i', $statement, $delete_matches);
+	        preg_match('/[^AZ-az]*(\()?[^AZ-az]*INSERT/i', $statement, $insert_matches);
+	        preg_match('/[^AZ-az]*(\()?[^AZ-az]*REPLACE/i', $statement, $replace_matches);
+	        preg_match('/[^AZ-az]*(\()?[^AZ-az]*UPDATE/i', $statement, $update_matches);
 
-                foreach ($params as $param) {
-                    // default to string, change if neccessary
-                    $paramType = 's';
-                    
-                    if (Math::isInt($param)) {
-                        $paramType = 'i';
-                    } else if (Math::isFloat($param)) {
-                        $paramType = 'd';
-                    }
-                    
-                    $types[] = $paramType;
-                }
+	        // a single array parameter means that we're batching multiple
+	        // value feeds for a single prepared statement, so we just use
+	        // the first array value to actually prepare the statement
+	        // and determine all the binding types
+	        if (count($params) == 1) {
+	            $paramsArray = $params[0];
+	            $is_multi_query = true;
+	        } else {
+	            $paramsArray = $params;
+	            // convert method parameters into an array,
+	            // so we can reuse it in both cases - when we're executing
+	            // just a single prepared statement and also when we're
+	            // batching up multiple values for an insert/update/delete statement
+	            $params = [$params];
+	        }
 
-                // dynamically bind parameters
-                $bind_names = [implode('', $types)];
-                for ($i=0; $i<count($params); $i++){
-                    $bind_name = 'bind' . $i;
-                    $$bind_name = $params[$i];
-                    $bind_names[] = &$$bind_name;
-                }
-                call_user_func_array(array($prep, 'bind_param'),$bind_names);
+	        // determine and prepare parameter types
+	        $types = [];
+	        foreach ($paramsArray as $param) {
+	            // default to string, change if neccessary
+	            $paramType = 's';
 
-                // execute the statement to get its value back
-                if (mysqli_stmt_execute($prep)) {
-                    $this->selectQueryCount++;
+	            if (Math::isInt($param)) {
+	                $paramType = 'i';
+	            } else if (Math::isFloat($param)) {
+	                $paramType = 'd';
+	            }
 
-                    // read metadata, so we know what fields we were actually selecting
-                    // and can prepare our temporary variables to read them into
-                    $resultMetaData = mysqli_stmt_result_metadata($prep);
+	            $types[] = $paramType;
+	        }
 
-                    $stmtRow = array();
-                    $rowReferences = array();
-                    while ($field = mysqli_fetch_field($resultMetaData)) {
-                        $rowReferences[] = &$stmtRow[$field->name];
-                    }
-                    mysqli_free_result($resultMetaData); 
+	        // dynamically bind each data batch using previously
+	        // defined parameters
+	        $implodedNames = [implode('', $types)];
+	        $outputValues = [];
 
-                    // now call bind_result with all our variables to recive the data prepared
-                    call_user_func_array(array($prep, 'bind_result'), $rowReferences);
+	        foreach ($params as $dataBatch) {
+	            $bind_names = $implodedNames;
+    	        for ($i=0; $i<count($dataBatch); $i++) {
+    	            $bind_name = 'bind' . $i;
+    	            $$bind_name = $dataBatch[$i];
+    	            $bind_names[] = &$$bind_name;
+    	        }
+    	        call_user_func_array(array($prep, 'bind_param'), $bind_names);
 
-                    // prepare the array-ed result
-                    while(mysqli_stmt_fetch($prep)){
-                        $row = array();
-                        foreach($stmtRow as $key => $value){
-                            $row[$key] = $value;
+        	    // SELECT
+        	    if (count($select_matches)) {
+                    // execute the statement to get its value back
+                    if (mysqli_stmt_execute($prep)) {
+                        $this->selectQueryCount++;
+                        $queryResult = [];
+    
+                        // read metadata, so we know what fields we were actually selecting
+                        // and can prepare our temporary variables to read them into
+                        $resultMetaData = mysqli_stmt_result_metadata($prep);
+    
+                        $stmtRow = array();
+                        $rowReferences = array();
+                        while ($field = mysqli_fetch_field($resultMetaData)) {
+                            $rowReferences[] = &$stmtRow[$field->name];
                         }
-                        $queryResult[] = $row;
+                        mysqli_free_result($resultMetaData); 
+    
+                        // now call bind_result with all our variables to recive the data prepared
+                        call_user_func_array(array($prep, 'bind_result'), $rowReferences);
+    
+                        // prepare the array-ed result
+                        while(mysqli_stmt_fetch($prep)){
+                            $row = array();
+                            foreach($stmtRow as $key => $value){
+                                $row[$key] = $value;
+                            }
+                            $queryResult[] = $row;
+                        }
+    
+                        // free the result
+                        mysqli_stmt_free_result($prep); 
+    
+                        $outputValues[] = $queryResult;
+                    } else {
+                        throw new Exception('Failed to execute an SQL statement!');
                     }
+        	    }
+    	    }
 
-                    // free the result and the prepared statement itself
-                    mysqli_stmt_free_result($prep); 
-                    mysqli_stmt_close($prep);
+    	    // free the prepared statement
+    	    mysqli_stmt_close($prep);
 
-                    // and return the value
-                    return $queryResult;
-                } else {
-                    throw new Exception('Failed to execute an SQL statement!');
-                }
-            } else {
-                throw new Exception('Failed to prepare an SQL statement!');
-            }
+    	    // return the expected result
+    	    if (count($select_matches)) {
+    	        // if there is only a single result, return it alone
+    	        if (count($outputValues) === 1) {
+    	            return $outputValues[0];
+    	        } else {
+    	            // otherwise, return all the data
+    	            return $outputValues;
+    	        }
+    	    }
+        } else {
+            throw new Exception('Failed to prepare an SQL statement!');
 	    }
 
 	    return false;
@@ -1597,7 +1639,7 @@ class MYSQLi_DB implements IDbConnection {
                     if ($row['owner'] != $owner) {
                         $this->sendMessage(
                             (int) $row['owner'],
-                            2,
+                            4,
                             'New Message in Alliance Forum',
                             "Hi!\n\n<a href=\"".rtrim(SERVER, '/')."/spieler.php?uid=".(int) $session->uid."\">".$this->escape($session->username)."</a> posted a new message into your common topic. Here\\'s a link that will get you there: <a href=\"".rtrim(SERVER, '/')."/allianz.php?s=2&amp;pid=2&amp;fid2=$fid2&amp;tid=$tids\">forum link</a>\n\nYours sincerely,\n<i>Server Robot :)</i>",
                             0,
@@ -3001,7 +3043,7 @@ class MYSQLi_DB implements IDbConnection {
 	            if ($demolition) {
 	                $this->sendMessage(
 	                    $userData['id'],
-	                    2,
+	                    4,
 	                    'You left the alliance',
 	                    $this->escape("Hi, ".$userData['username']."!\n\nThis is to inform you that due to a finished demolition of your last Embassy, you have now successfully left your alliance.\n\nYours sincerely,\n<i>Server Robot :)</i>"),
 	                    0,
@@ -3014,7 +3056,7 @@ class MYSQLi_DB implements IDbConnection {
 	                // player has been removed from the alliance
 	                $this->sendMessage(
 	                    $userData['id'],
-	                    2,
+	                    4,
 	                    'An attack has forced you to leave the alliance',
 	                    $this->escape("Hi, ".$userData['username']."!\n\nThis is to inform you that due to a successful attack and destruction of your last Embassy, you have been forced to leave your alliance.\n\nTo re-establish your position in this alliance, you will need to build a new Embassy and ask the leader to send you an invite again.\n\nYours sincerely,\n<i>Server Robot :)</i>"),
 	                    0,
@@ -3069,7 +3111,7 @@ class MYSQLi_DB implements IDbConnection {
 	                    // notify them via in-game messaging
 	                    $this->sendMessage(
 	                        $member['id'],
-	                        2,
+	                        4,
 	                        'Your alliance was disbanded',
 	                        (
 	                            ($member['id'] == $userData['id'])
@@ -3113,7 +3155,7 @@ class MYSQLi_DB implements IDbConnection {
     	                        // notify new leader via in-game messaging
     	                        $this->sendMessage(
     	                            $newleader,
-    	                            2,
+    	                            4,
     	                            'You are now the alliance leader',
     	                            $this->escape("Hi, ".$member['username']."!\n\nThis is to inform you that there was a successful attack on player <a href=\"spieler.php?uid=".$userData['id']."\">".$userData['username']."</a> which has damaged their Embassy badly enough that they are no longer able to sustain the leadership of your alliance.\n\nSince your Embassy level is of a sufficient level, you have been auto-elected to the position of a new leader of your alliance with all duties and responsibilities thereof.\n\nYours sincerely,\n<i>Server Robot :)</i>"),
     	                            0,
@@ -3142,7 +3184,7 @@ class MYSQLi_DB implements IDbConnection {
 	                    foreach ($members as $member) {
     	                    $this->sendMessage(
     	                        $member['id'],
-    	                        2,
+    	                        4,
     	                        'Your alliance was dispersed',
     	                        (
     	                            ($member['id'] == $userData['id'])
@@ -3177,7 +3219,7 @@ class MYSQLi_DB implements IDbConnection {
 	                            if ($keepCurrentPlayer || (!$keepCurrentPlayer && $member['id'] != $userData['id']))
         	                        $this->sendMessage(
         	                            $member['id'],
-        	                            2,
+        	                            4,
         	                            'Your alliance has a new leader',
         	                            (
         	                                ($member['id'] == $userData['id'])
@@ -3209,7 +3251,7 @@ class MYSQLi_DB implements IDbConnection {
 	                        // notify the evicted player
 	                        $this->sendMessage(
 	                            $userData['id'],
-	                            2,
+	                            4,
 	                            'An attack has forced you to leave the alliance',
 	                            $this->escape("Hi, ".$userData['username']."!\n\nThis is to inform you that due to a successful attack and destruction of your last Embassy, you have been forced to leave your alliance.\n\nTo re-establish your position in this alliance, you will need to build a new Embassy and ask the <a href=\"spieler.php?uid=".$newleader."\">newly auto-elected leader</a> to send you an invite again.\n\nYours sincerely,\n<i>Server Robot :)</i>"),
 	                            0,

@@ -249,14 +249,14 @@ class Automation {
         fclose($ourFileHandle);
         global $database;
         $array = array();
-        $q = "SELECT wref, loyalty, lastupdate2 FROM ".TB_PREFIX."vdata WHERE loyalty<>100";
+        $q = "SELECT wref, loyalty, lastupdate2 FROM ".TB_PREFIX."vdata WHERE loyalty < 100";
         $array = $database->query_return($q);
         if(!empty($array)) {
             foreach($array as $loyalty) {
-                if($this->getTypeLevel(25,$loyalty['wref']) >= 1){
-                    $value = $this->getTypeLevel(25,$loyalty['wref']);
-                }elseif($this->getTypeLevel(26,$loyalty['wref']) >= 1){
-                    $value = $this->getTypeLevel(26,$loyalty['wref']);
+                if (($t25_level = $this->getTypeLevel(25, $loyalty['wref'])) >= 1) {
+                    $value = $t25_level;
+                }elseif(($t26_level = $this->getTypeLevel(26,$loyalty['wref'])) >= 1){
+                    $value = $t26_level;
                 } else {
                     $value = 0;
                 }
@@ -266,14 +266,14 @@ class Automation {
             }
         }
         $array = array();
-        $q = "SELECT conqured, loyalty, lastupdated, wref FROM ".TB_PREFIX."odata WHERE loyalty<>100";
+        $q = "SELECT conqured, loyalty, lastupdated, wref FROM ".TB_PREFIX."odata WHERE loyalty < 100";
         $array = $database->query_return($q);
         if(!empty($array)) {
             foreach($array as $loyalty) {
-                if($this->getTypeLevel(25,$loyalty['conqured']) >= 1){
-                    $value = $this->getTypeLevel(25,$loyalty['conqured']);
-                }elseif($this->getTypeLevel(26,$loyalty['conqured']) >= 1){
-                    $value = $this->getTypeLevel(26,$loyalty['conqured']);
+                if(($t25_level = $this->getTypeLevel(25,$loyalty['conqured'])) >= 1){
+                    $value = $t25_level;
+                }elseif(($t26_level = $this->getTypeLevel(26,$loyalty['conqured'])) >= 1){
+                    $value = $t26_level;
                 } else {
                     $value = 0;
                 }
@@ -367,7 +367,7 @@ class Automation {
                     $database->query($q);
                     $q = "DELETE FROM ".TB_PREFIX."market where vref = ".$village;
                     $database->query($q);
-                    $q = "DELETE FROM ".TB_PREFIX."odata where wref = ".$village;
+                    $q = "UPDATE ".TB_PREFIX."odata SET conqured = 0, loyalty = 100, owner = 2, name = 'Unoccupied Oasis' where wref = ".$village;
                     $database->query($q);
                     $q = "DELETE FROM ".TB_PREFIX."research where vref = ".$village;
                     $database->query($q);
@@ -490,121 +490,56 @@ class Automation {
     private function pruneOResource() {
         global $database;
         if(!ALLOW_BURST) {
-            $q = "SELECT maxstore, maxcrop, wref FROM ".TB_PREFIX."odata WHERE maxstore < 800 OR maxcrop < 800";
-            $array = $database->query_return($q);
-            foreach($array as $getoasis) {
-                if($getoasis['maxstore'] < 800){
-                    $maxstore = 800;
-                }else{
-                    $maxstore = $getoasis['maxstore'];
-                }
-                if($getoasis['maxcrop'] < 800){
-                    $maxcrop = 800;
-                }else{
-                    $maxcrop = $getoasis['maxcrop'];
-                }
-                $q = "UPDATE " . TB_PREFIX . "odata set maxstore = $maxstore, maxcrop = $maxcrop where wref = ".$getoasis['wref']."";
-                $database->query($q);
-            }
-            $q = "SELECT wood, clay, iron, crop, wref FROM ".TB_PREFIX."odata WHERE wood < 0 OR clay < 0 OR iron < 0 OR crop < 0";
-            $array = $database->query_return($q);
-            foreach($array as $getoasis) {
-                if($getoasis['wood'] < 0){
-                    $wood = 0;
-                }else{
-                    $wood = $getoasis['wood'];
-                }
-                if($getoasis['clay'] < 0){
-                    $clay = 0;
-                }else{
-                    $clay = $getoasis['clay'];
-                }
-                if($getoasis['iron'] < 0){
-                    $iron = 0;
-                }else{
-                    $iron = $getoasis['iron'];
-                }
-                if($getoasis['crop'] < 0){
-                    $crop = 0;
-                }else{
-                    $crop = $getoasis['crop'];
-                }
-                $q = "UPDATE " . TB_PREFIX . "odata set wood = $wood, clay = $clay, iron = $iron, crop = $crop where wref = ".$getoasis['wref']."";
-                $database->query($q);
-            }
+            $database->query("UPDATE
+                      ".TB_PREFIX."odata
+                  SET
+                      wood = IF(wood < 0, 0, wood),
+                      clay = IF(clay < 0, 0, clay),
+                      iron = IF(iron < 0, 0, iron),
+                      crop = IF(crop < 0, 0, crop),
+                      maxstore = IF(maxstore < 800, 800, maxstore),
+                      maxcrop = IF(maxcrop < 800, 800, maxcrop)
+                  WHERE
+                      maxstore < 800 OR
+                      maxcrop < 800 OR
+                      wood < 0 OR
+                      clay < 0 OR
+                      iron < 0 OR
+                      crop < 0");
         }
     }
     private function pruneResource() {
         global $database;
         if(!ALLOW_BURST) {
-            $q = "SELECT maxstore, maxcrop, wref FROM ".TB_PREFIX."vdata WHERE maxstore < 800 OR maxcrop < 800";
-            $array = $database->query_return($q);
-            foreach($array as $getvillage) {
-                if($getvillage['maxstore'] < 800){
-                    $maxstore = 800;
-                }else{
-                    $maxstore = $getvillage['maxstore'];
-                }
-                if($getvillage['maxcrop'] < 800){
-                    $maxcrop = 800;
-                }else{
-                    $maxcrop = $getvillage['maxcrop'];
-                }
-                $q = "UPDATE " . TB_PREFIX . "vdata set maxstore = $maxstore, maxcrop = $maxcrop where wref = ".(int) $getvillage['wref']."";
-                $database->query($q);
-            }
-            $q = "SELECT maxstore, maxcrop, wood, clay, iron, crop, wref FROM ".TB_PREFIX."vdata WHERE wood > maxstore OR clay > maxstore OR iron > maxstore OR crop > maxcrop";
-            $array = $database->query_return($q);
-            foreach($array as $getvillage) {
-                if($getvillage['wood'] > $getvillage['maxstore']){
-                    $wood = $getvillage['maxstore'];
-                }else{
-                    $wood = $getvillage['wood'];
-                }
-                if($getvillage['clay'] > $getvillage['maxstore']){
-                    $clay = $getvillage['maxstore'];
-                }else{
-                    $clay = $getvillage['clay'];
-                }
-                if($getvillage['iron'] > $getvillage['maxstore']){
-                    $iron = $getvillage['maxstore'];
-                }else{
-                    $iron = $getvillage['iron'];
-                }
-                if($getvillage['crop'] > $getvillage['maxcrop']){
-                    $crop = $getvillage['maxcrop'];
-                }else{
-                    $crop = $getvillage['crop'];
-                }
-                $q = "UPDATE " . TB_PREFIX . "vdata set wood = $wood, clay = $clay, iron = $iron, crop = $crop where wref = ".(int) $getvillage['wref']."";
-                $database->query($q);
-            }
-            $q = "SELECT wood, clay, iron, crop, wref FROM ".TB_PREFIX."vdata WHERE wood < 0 OR clay < 0 OR iron < 0 OR crop < 0";
-            $array = $database->query_return($q);
-            foreach($array as $getvillage) {
-                if($getvillage['wood'] < 0){
-                    $wood = 0;
-                }else{
-                    $wood = $getvillage['wood'];
-                }
-                if($getvillage['clay'] < 0){
-                    $clay = 0;
-                }else{
-                    $clay = $getvillage['clay'];
-                }
-                if($getvillage['iron'] < 0){
-                    $iron = 0;
-                }else{
-                    $iron = $getvillage['iron'];
-                }
-                if($getvillage['crop'] < 0){
-                    $crop = 0;
-                }else{
-                    $crop = $getvillage['crop'];
-                }
-                $q = "UPDATE " . TB_PREFIX . "vdata set wood = $wood, clay = $clay, iron = $iron, crop = $crop where wref = ".(int) $getvillage['wref']."";
-                $database->query($q);
-            }
+            $database->query("UPDATE
+                      ".TB_PREFIX."vdata
+                  SET
+                      wood = IF(wood < 0, 0, wood),
+                      clay = IF(clay < 0, 0, clay),
+                      iron = IF(iron < 0, 0, iron),
+                      crop = IF(crop < 0, 0, crop),
+                      maxstore = IF(maxstore < 800, 800, maxstore),
+                      maxcrop = IF(maxcrop < 800, 800, maxcrop)
+                  WHERE
+                      maxstore < 800 OR
+                      maxcrop < 800 OR
+                      wood < 0 OR
+                      clay < 0 OR
+                      iron < 0 OR
+                      crop < 0");
+
+            $database->query("UPDATE
+                      ".TB_PREFIX."vdata
+                  SET
+                      wood = IF(wood > maxstore, maxstore, wood),
+                      clay = IF(clay > maxstore, maxstore, clay),
+                      iron = IF(iron > maxstore, maxstore, iron),
+                      crop = IF(crop > maxcrop, maxcrop, crop)
+                  WHERE
+                      wood > maxstore OR
+                      clay > maxstore OR
+                      iron > maxstore OR
+                      crop > maxcrop");
         }
     }
     
@@ -641,100 +576,109 @@ class Automation {
     }
     
     private function buildComplete() {
+        global $database,$bid18,$bid10,$bid11,$bid38,$bid39;
+
         if(file_exists("GameEngine/Prevention/build.txt")) {
             unlink("GameEngine/Prevention/build.txt");
         }
-        global $database,$bid18,$bid10,$bid11,$bid38,$bid39;
+
         $time = time();
-        $array = array();
-        $q = "SELECT id, wid, field, level, type, timestamp FROM ".TB_PREFIX."bdata where timestamp < $time and master = 0";
-        $array = $database->query_return($q);
-        foreach($array as $indi) {
+        // IDs of villages that were affected by this building completion update,
+        // used to calculate statistical data at the end
+        $villagesAffected = [];
+        // tribes for owner IDs, in case we have one owner that finished building
+        // in multiple villages, so we don't have to select their tribe in every
+        // foreach cycle
+        $ownersToTribes = [];
+        // holds additional conditions when updating loopcon records in the bdata table
+        $loopconUpdates = [];
+        // this will hold IDs of bdata table records to delete
+        $dbIdsToDelete = [];
+
+        // get all pending builds that should be complete by now
+        $res = $database->query_return(
+            "SELECT
+                id, wid, field, level, type, timestamp
+             FROM
+                ".TB_PREFIX."bdata
+            WHERE
+                timestamp < $time and master = 0"
+        );
+
+        // complete each of them
+        foreach($res as $indi) {
+            // store village ID for later for statistical updates
+            $villagesAffected[] = (int) $indi['wid'];
             $level = $database->getFieldLevel($indi['wid'],$indi['field']);
-            if (($level+1) == $indi['level']){
-                $q = "UPDATE ".TB_PREFIX."fdata set f".$indi['field']." = ".(int) $indi['level'].", f".$indi['field']."t = ".$indi['type']." where vref = ".(int) $indi['wid'];
-            }else{ $indi['level']=($level+1);
-            $q = "UPDATE ".TB_PREFIX."fdata set f".$indi['field']." = ".(int) $indi['level'].", f".$indi['field']."t = ".$indi['type']." where vref = ".(int) $indi['wid'];
+            $villageOwner = $database->getVillageField($indi['wid'],"owner");
+
+            if (!isset($ownersToTribes[$villageOwner])) {
+                $ownersToTribes[$villageOwner] = $database->getUserField($villageOwner, "tribe", 0);
             }
+
+            if (($level + 1) == $indi['level']){
+                $q = "UPDATE ".TB_PREFIX."fdata set f".$indi['field']." = ".$indi['level'].", f".$indi['field']."t = ".$indi['type']." where vref = ".(int) $indi['wid'];
+            } else {
+                $indi['level'] = ($level + 1);
+                $q = "UPDATE ".TB_PREFIX."fdata set f".$indi['field']." = ".$indi['level'].", f".$indi['field']."t = ".$indi['type']." where vref = ".(int) $indi['wid'];
+            }
+
             if($database->query($q)) {
-                $level = $database->getFieldLevel($indi['wid'],$indi['field']);
-                $this->recountPop($indi['wid']);
-                $this->procClimbers($database->getVillageField($indi['wid'],'owner'));
-                
-                if($indi['type'] == 10) {
-                    $max=$database->getVillageField($indi['wid'],"maxstore");
-                    if($level=='1' && $max==STORAGE_BASE){ $max=STORAGE_BASE; }
-                    if($level!=1){
-                        $max-=$bid10[$level-1]['attri']*STORAGE_MULTIPLIER;
-                        $max+=$bid10[$level]['attri']*STORAGE_MULTIPLIER;
-                    }else{
-                        $max=$bid10[$level]['attri']*STORAGE_MULTIPLIER;
+                // this will be the level we brought the building to now
+                $level = $indi['level'];
+
+                // TODO: magic numbers into constants (for building types below)
+
+                // update capacity if we updated a warehouse or a granary
+                if (in_array($indi['type'], [10, 11, 38, 39])) {
+                    $fieldDbName = (in_array($indi['type'], [10, 38]) ? 'maxstore' : 'maxcrop');
+                    $max = $database->getVillageField($indi['wid'], $fieldDbName);
+
+                    if($level == 1 && $max == STORAGE_BASE) {
+                        $max=STORAGE_BASE;
                     }
-                    $database->setVillageField($indi['wid'],"maxstore",$max);
-                }
-                
-                if($indi['type'] == 11) {
-                    $max=$database->getVillageField($indi['wid'],"maxcrop");
-                    if($level=='1' && $max==STORAGE_BASE){ $max=STORAGE_BASE; }
-                    if($level!=1){
-                        $max-=$bid11[$level-1]['attri']*STORAGE_MULTIPLIER;
-                        $max+=$bid11[$level]['attri']*STORAGE_MULTIPLIER;
-                    }else{
-                        $max=$bid11[$level]['attri']*STORAGE_MULTIPLIER;
+
+                    if ($level != 1) {
+                        $max -= ${'bid'.$indi['type']}[$level-1]['attri'] * STORAGE_MULTIPLIER;
+                        $max += ${'bid'.$indi['type']}[$level]['attri'] * STORAGE_MULTIPLIER;
+                    } else {
+                        $max = ${'bid'.$indi['type']}[$level]['attri'] * STORAGE_MULTIPLIER;
                     }
-                    $database->setVillageField($indi['wid'],"maxcrop",$max);
+
+                    $database->setVillageField($indi['wid'], $fieldDbName, $max);
                 }
-                
+
+                // if we updated Embassy, update maximum members that the alliance can take
                 if($indi['type'] == 18){
-                    Automation::updateMax($database->getVillageField($indi['wid'],"owner"));
+                    Automation::updateMax($villageOwner);
                 }
-                
-                if($indi['type'] == 38) {
-                    $max=$database->getVillageField($indi['wid'],"maxstore");
-                    if($level=='1' && $max==STORAGE_BASE){ $max=STORAGE_BASE; }
-                    if($level!=1){
-                        $max-=$bid38[$level-1]['attri']*STORAGE_MULTIPLIER;
-                        $max+=$bid38[$level]['attri']*STORAGE_MULTIPLIER;
-                    }else{
-                        $max=$bid38[$level]['attri']*STORAGE_MULTIPLIER;
-                    }
-                    $database->setVillageField($indi['wid'],"maxstore",$max);
-                }
-                
-                if($indi['type'] == 39) {
-                    $max=$database->getVillageField($indi['wid'],"maxcrop");
-                    if($level=='1' && $max==STORAGE_BASE){ $max=STORAGE_BASE; }
-                    if($level!=1){
-                        $max-=$bid39[$level-1]['attri']*STORAGE_MULTIPLIER;
-                        $max+=$bid39[$level]['attri']*STORAGE_MULTIPLIER;
-                    }else{
-                        $max=$bid39[$level]['attri']*STORAGE_MULTIPLIER;
-                    }
-                    $database->setVillageField($indi['wid'],"maxcrop",$max);
-                }
-                
+
                 // by SlimShady95 aka Manuel Mannhardt < manuel_mannhardt@web.de >
-                if($indi['type'] == 40 and ($indi['level'] % 5 == 0 or $indi['level'] > 95) and $indi['level'] != 100){
+                if ($indi['type'] == 40 && ($indi['level'] % 5 == 0 || $indi['level'] > 95) && $indi['level'] != 100) {
                     $this->startNatarAttack($indi['level'], $indi['wid'], $indi['timestamp']);
                 }
-                if($indi['type'] == 40 && $indi['level'] == 100){ //now can't be more than one winners if ww to level 100 is build by 2 users or more on same time
+
+                //now can't be more than one winner if ww to level 100 is build by 2 users or more on same time
+                if ($indi['type'] == 40 && $indi['level'] == 100) {
                     mysqli_query($GLOBALS['link'],"TRUNCATE ".TB_PREFIX."bdata");
                 }
-                if($database->getUserField($database->getVillageField($indi['wid'],"owner"),"tribe",0) != 1){
-                    $q4 = "UPDATE ".TB_PREFIX."bdata set loopcon = 0 where loopcon = 1 and master = 0 and wid = ".(int) $indi['wid'];
-                    $database->query($q4);
-                }else{
-                    if($indi['field'] > 18){
-                        $q4 = "UPDATE ".TB_PREFIX."bdata set loopcon = 0 where loopcon = 1 and master = 0 and wid = ".(int) $indi['wid']." and field > 18";
-                        $database->query($q4);
-                    }else{
-                        $q4 = "UPDATE ".TB_PREFIX."bdata set loopcon = 0 where loopcon = 1 and master = 0 and wid = ".(int) $indi['wid']." and field < 19";
-                        $database->query($q4);
+
+                // TODO: find out what exactly these conditions are for
+                // no special military conditioning for Teutons and Gauls
+                if ($ownersToTribes[$villageOwner] != 1) {
+                    $loopconUpdates[$indi['wid']] = '';
+                } else {
+                    // special condition for Roman military buildings
+                    if ($indi['field'] > 18) {
+                        $loopconUpdates[$indi['wid']] = ' AND field > 18';
+                    } else {
+                        $loopconUpdates[$indi['wid']] = ' AND field < 19';
                     }
                 }
-                $q = "DELETE FROM ".TB_PREFIX."bdata where id = ".(int) $indi['id'];
-                $database->query($q);
+
+                $dbIdsToDelete[] = (int) $indi['id'];
             }
+
             $crop = $database->getCropProdstarv($indi['wid']);
             $unitarrays = $this->getAllUnits($indi['wid']);
             $village = $database->getVillage($indi['wid']);
@@ -748,6 +692,30 @@ class Automation {
                 }
             }
         }
+
+        // update statistical data andfor affected villages
+        foreach ($villagesAffected as $affected_id) {
+            $this->recountPop( $affected_id );
+            $this->procClimbers( $database->getVillageField( $affected_id, 'owner' ) );
+        }
+
+        // update data that can be done in one swoop instead of using multiple update queries
+        // no special checks for Romans
+        foreach ($loopconUpdates as $villageId => $updateCondition) {
+            $database->query(
+                "UPDATE
+                    ".TB_PREFIX."bdata
+                 SET
+                    loopcon = 0
+                 WHERE
+                    loopcon = 1 AND
+                    master = 0 AND
+                    wid = ".$villageId.$updateCondition);
+        }
+
+        // delete all processed entries
+        $database->query("DELETE FROM ".TB_PREFIX."bdata WHERE id IN(".implode(',', $dbIdsToDelete).")");
+
         if(file_exists("GameEngine/Prevention/build.txt")) {
             unlink("GameEngine/Prevention/build.txt");
         }
@@ -3488,9 +3456,9 @@ class Automation {
                     }else{
                         $to_name="Oasis ".$database->getVillageField($to['conqured'],"name");
                     }
-                    $database->addNotice($from['owner'],$from['wref'],$ownally,8,''.addslashes($from['name']).' reinforcement '.addslashes($to_name).'',$data_fail,$AttackArrivalTime);
+                    $database->addNotice($from['owner'],$from['wref'],(isset($ownally) ? $ownally : 0),8,''.addslashes($from['name']).' reinforcement '.addslashes($to_name).'',$data_fail,(isset($AttackArrivalTime) ? $AttackArrivalTime : time()));
                     if($from['owner'] != $to['owner']) {
-                        $database->addNotice($to['owner'],$to['wref'],$targetally,8,''.addslashes($from['name']).' reinforcement '.addslashes($to_name).'',$data_fail,$AttackArrivalTime);
+                        $database->addNotice($to['owner'],$to['wref'],(isset($targetally) ? $targetally : 0),8,''.addslashes($from['name']).' reinforcement '.addslashes($to_name).'',$data_fail,(isset($AttackArrivalTime) ? $AttackArrivalTime : time()));
                     }
                     //update status
                     $database->setMovementProc($data['moveid']);
@@ -3536,7 +3504,7 @@ class Automation {
         $time = time();
         $q = "
             SELECT
-                `to`, `from`, moveid,
+                `to`, `from`, moveid, starttime, endtime,
                 t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11
             FROM
                 ".TB_PREFIX."movement,
@@ -3550,31 +3518,43 @@ class Automation {
                 AND
                 endtime < $time";
         $dataarray = $database->query_return($q);
+
+        // because of a yet-to-be-discovered but, movements sometimes get inserted into the database twice,
+        // so we need to de-duplicate them here by checking for the same wave properties sent out at the
+        // same time (i.e. with exactly the same timestamp)
+        $wavesData = [];
         
         if ($dataarray && count($dataarray)) {
             foreach($dataarray as $data) {
-                
-                $tribe = $database->getUserField($database->getVillageField($data['to'],"owner"),"tribe",0);
-                
-                if($tribe == 1){ $u = ""; } elseif($tribe == 2){ $u = "1"; } elseif($tribe == 3){ $u = "2"; } elseif($tribe == 4){ $u = "3"; } else{ $u = "4"; }
-                $database->modifyUnit(
-                    $data['to'],
-                    array($u."1",$u."2",$u."3",$u."4",$u."5",$u."6",$u."7",$u."8",$u."9",$tribe."0","hero"),
-                    array($data['t1'],$data['t2'],$data['t3'],$data['t4'],$data['t5'],$data['t6'],$data['t7'],$data['t8'],$data['t9'],$data['t10'],$data['t11']),
-                    array(1,1,1,1,1,1,1,1,1,1,1)
-                    );
-                $database->setMovementProc($data['moveid']);
-                $crop = $database->getCropProdstarv($data['to']);
-                $unitarrays = $this->getAllUnits($data['to']);
-                $village = $database->getVillage($data['to']);
-                $upkeep = $village['pop'] + $this->getUpkeep($unitarrays, 0);
-                $starv = $database->getVillageField($data['to'],"starv");
-                if ($crop < $upkeep){
-                    // add starv data
-                    $database->setVillageField($data['to'], 'starv', $upkeep);
-                    if($starv==0){
-                        $database->setVillageField($data['to'], 'starvupdate', $time);
+                if (!isset($wavesData[$data['from'].$data['to'].$data['starttime'].$data['endtime']])) {
+                    $tribe = $database->getUserField($database->getVillageField($data['to'],"owner"),"tribe",0);
+                    
+                    if($tribe == 1){ $u = ""; } elseif($tribe == 2){ $u = "1"; } elseif($tribe == 3){ $u = "2"; } elseif($tribe == 4){ $u = "3"; } else{ $u = "4"; }
+                    $database->modifyUnit(
+                        $data['to'],
+                        array($u."1",$u."2",$u."3",$u."4",$u."5",$u."6",$u."7",$u."8",$u."9",$tribe."0","hero"),
+                        array($data['t1'],$data['t2'],$data['t3'],$data['t4'],$data['t5'],$data['t6'],$data['t7'],$data['t8'],$data['t9'],$data['t10'],$data['t11']),
+                        array(1,1,1,1,1,1,1,1,1,1,1)
+                        );
+                    $database->setMovementProc($data['moveid']);
+                    $crop = $database->getCropProdstarv($data['to']);
+                    $unitarrays = $this->getAllUnits($data['to']);
+                    $village = $database->getVillage($data['to']);
+                    $upkeep = $village['pop'] + $this->getUpkeep($unitarrays, 0);
+                    $starv = $database->getVillageField($data['to'],"starv");
+                    if ($crop < $upkeep){
+                        // add starv data
+                        $database->setVillageField($data['to'], 'starv', $upkeep);
+                        if($starv==0){
+                            $database->setVillageField($data['to'], 'starvupdate', $time);
+                        }
                     }
+
+                    // make sure we don't process duplicate movements until the big bad bug which inserts them into DB is fixed
+                    $wavesData[$data['from'].$data['to'].$data['starttime'].$data['endtime']] = true;
+                } else {
+                    // duplicate record, just mark it as processed
+                    $database->setMovementProc($data['moveid']);
                 }
             }
         }
@@ -5021,7 +5001,6 @@ class Automation {
         global $ranking,$database;
         
         //we may give away ribbons
-        
         $giveMedal = false;
         $q = "SELECT lastgavemedal FROM ".TB_PREFIX."config";
         $result = mysqli_query($GLOBALS['link'],$q);

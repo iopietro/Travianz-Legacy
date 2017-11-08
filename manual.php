@@ -26,7 +26,7 @@ include_once("GameEngine/config.php");
 	<script src="mt-more.js?0faab" type="text/javascript"></script>
 	<script src="unx.js?f4b7g" type="text/javascript"></script>
 	<script src="new.js?0faab" type="text/javascript"></script>
-	<link href="<?php echo GP_LOCATE; ?>lang/en/compact.css?f4b7f" rel="stylesheet" type="text/css" />
+	<link href="<?php echo GP_LOCATE; ?>lang/en/compact.css?f4b7g" rel="stylesheet" type="text/css" />
 	<link href="<?php echo GP_LOCATE; ?>lang/en/lang.css?f4b7d" rel="stylesheet" type="text/css" />
 	<link href="<?php echo GP_LOCATE; ?>travian.css?f4b7d" rel="stylesheet" type="text/css" />
 		<link href="<?php echo GP_LOCATE; ?>lang/en/lang.css" rel="stylesheet" type="text/css" />
@@ -37,7 +37,7 @@ include_once("GameEngine/config.php");
 if (isset($_GET['s']) && !ctype_digit($_GET['s'])) {
 	$_GET['s'] = "0";
 }
-if (!ctype_digit($_GET['typ'])) {
+if (isset($_GET['typ']) && !ctype_digit($_GET['typ'])) {
 	$_GET['typ'] = null;
 }
 if(!isset($_GET['typ']) && !isset($_GET['s'])) {
