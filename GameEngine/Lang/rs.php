@@ -16,76 +16,76 @@
 									/////////////////////////////
 
 //MAIN MENU
-define("TRIBE1","Romans");
-define("TRIBE2","Teutons");
-define("TRIBE3","Gauls");
-define("TRIBE4","Nature");
-define("TRIBE5","Natars");
-define("TRIBE6","Monsters");
+define("TRIBE1","Rimljani");
+define("TRIBE2","Tevtonci");
+define("TRIBE3","Gali");
+define("TRIBE4","Priroda");
+define("TRIBE5","Natari");
+define("TRIBE6","Čudovišta");
 
-define("HOME","Homepage");
-define("INSTRUCT","Instructions");
+define("HOME","Početna");
+define("INSTRUCT","Instrukcije");
 define("ADMIN_PANEL","Admin Panel");
 define("MASS_MESSAGE","Mass Message");
-define("LOGOUT","Logout");
-define("PROFILE","Profile");
-define("SUPPORT","Support");
-define("UPDATE_T_10","Update Top 10");
-define("SYSTEM_MESSAGE","System message");
+define("LOGOUT","Odjavi se");
+define("PROFILE","Profil");
+define("SUPPORT","Podrška");
+define("UPDATE_T_10","Osveži Top 10");
+define("SYSTEM_MESSAGE","Sistemka poruka");
 define("TRAVIAN_PLUS","Travian <b><span class=\"plus_g\">P</span><span class=\"plus_o\">l</span><span class=\"plus_g\">u</span><span class=\"plus_o\">s</span></span></span></b>");
-define("CONTACT","Contact us!");
-define("GAME_RULES","Game Rules");
+define("CONTACT","Kontaktirajte nas!");
+define("GAME_RULES","Pravila Igre");
 
 //MENU
-define("REG","Register");
+define("REG","Registruj se");
 define("FORUM","Forum");
-define("CHAT","Chat");
+define("CHAT","Čet");
 define("IMPRINT","Imprint");
-define("MORE_LINKS","More Links");
+define("MORE_LINKS","Više linkova");
 define("TOUR","Game Tour");
 
 
 //ERRORS
-define("USRNM_EMPTY","(Username empty)");
-define("USRNM_TAKEN","(Name is already in use.)");
-define("USRNM_SHORT","(min. ".USRNM_MIN_LENGTH." figures)");
-define("USRNM_CHAR","(Invalid Characters)");
-define("PW_EMPTY","(Password empty)");
-define("PW_SHORT","(min. ".PW_MIN_LENGTH." figures)");
-define("PW_INSECURE","(Password insecure. Please choose a more secure one.)");
-define("EMAIL_EMPTY","(Email Empty)");
-define("EMAIL_INVALID","(Invalid email address)");
-define("EMAIL_TAKEN","(Email is already in use)");
-define("TRIBE_EMPTY","<li>Please choose a tribe.</li>");
-define("AGREE_ERROR","<li>You have to agree to the game rules and the general terms & conditions in order to register.</li>");
-define("LOGIN_USR_EMPTY","Enter name.");
-define("LOGIN_PASS_EMPTY","Enter password.");
-define("EMAIL_ERROR","Email does not match existing");
-define("PASS_MISMATCH","Passwords do not match");
+define("USRNM_EMPTY","(Korisničko ime je prazno!)");
+define("USRNM_TAKEN","(Ime je već iskorišćeno.)");
+define("USRNM_SHORT","(min. ".USRNM_MIN_LENGTH." slova/brojki)");
+define("USRNM_CHAR","(Karakteri nisu validni)");
+define("PW_EMPTY","(Šifra je prazna)");
+define("PW_SHORT","(min. ".PW_MIN_LENGTH." slova/brojki)");
+define("PW_INSECURE","(Šifra je nedovoljno jaka. Molimo Vas izaberite sigurniju šifru.)");
+define("EMAIL_EMPTY","(Email je prazan)");
+define("EMAIL_INVALID","(Email nije validan)");
+define("EMAIL_TAKEN","(Email je iskorišćen)");
+define("TRIBE_EMPTY","<li>Izaberite pleme.</li>");
+define("AGREE_ERROR","<li>Morate se složiti sa pravilima igre i opštim uslovima kako bi se registrovali.</li>");
+define("LOGIN_USR_EMPTY","Unesite ime.");
+define("LOGIN_PASS_EMPTY","Unesite šifru.");
+define("EMAIL_ERROR","Email adresa ne postoji");
+define("PASS_MISMATCH","Šifra se ne slaže");
 define("ALLI_OWNER","Please appoint an alliance owner before deleting");
 define("SIT_ERROR","Sitter already set");
-define("USR_NT_FOUND","Name does not exist.");
-define("LOGIN_PW_ERROR","The password is wrong.");
-define("WEL_TOPIC","Useful tips & information ");
-define("ATAG_EMPTY","Tag empty");
-define("ANAME_EMPTY","Name empty");
-define("ATAG_EXIST","Tag taken");
-define("ANAME_EXIST","Name taken");
+define("USR_NT_FOUND","Ime ne postoji.");
+define("LOGIN_PW_ERROR","Šifra je pogrešna.");
+define("WEL_TOPIC","Korisni saveti & Informacije ");
+define("ATAG_EMPTY","Tag je prazan");
+define("ANAME_EMPTY","Ime je prazno");
+define("ATAG_EXIST","Tag je zauzet");
+define("ANAME_EXIST","Ime je zauzeto");
 define("NOT_OPENED_YET","Server not started yet.");
 define("REGISTER_CLOSED","The register is closed. You can't register to this server.");
-define("NAME_EMPTY","Please insert name");
-define("NAME_NO_EXIST","There is no user with the name ");
+define("NAME_EMPTY","Molimo Vas unesite ime");
+define("NAME_NO_EXIST","Ne postoji korisnik sa tim imenom. ");
 define("ID_NO_EXIST","There is no user with the id ");
-define("SAME_NAME","You can't invite yourself");
-define("ALREADY_INVITED"," already invited");
-define("ALREADY_IN_ALLY"," already in this alliance");
+define("SAME_NAME","Ne možete poslati pozivnicu sami sebi!");
+define("ALREADY_INVITED"," je već pozvan");
+define("ALREADY_IN_ALLY"," je već u alijensi");
 
 //COPYRIGHT
-define("TRAVIAN_COPYRIGHT","TravianZ 100% Open Source Travian Clone.");
+define("TRAVIAN_COPYRIGHT","TravianZ Open Source projekat.");
 
 //BUILD.TPL
-define("CUR_PROD","Current production");
-define("NEXT_PROD","Production at level ");
+define("CUR_PROD","Trenutna proizvodnja");
+define("NEXT_PROD","Proizvodnja na nivou");
 
 //BUILDINGS
 define("B1","Woodcutter");
@@ -98,43 +98,43 @@ define("B4","Cropland");
 define("B4_DESC","Your population`s food is produced here. By increasing the farm`s level you increase its crop production.");
 
 //DORF1
-define("LUMBER","Lumber");
-define("CLAY","Clay");
-define("IRON","Iron");
-define("CROP","Crop");
+define("LUMBER","Drvo");
+define("CLAY","Glina");
+define("IRON","Gvožđe");
+define("CROP","Žito");
 define("LEVEL","Level");
-define("CROP_COM",CROP." consumption");
-define("PER_HR","per hour");
-define("PROD_HEADER","Production");
-define("MULTI_V_HEADER","Villages");
-define("ANNOUNCEMENT","Announcement");
-define("GO2MY_VILLAGE","Go to my village");
-define("VILLAGE_CENTER","Village centre");
-define("FINISH_GOLD","Finish all construction and research orders in this village immediately for 2 Gold?");
+define("CROP_COM",CROP." potrošnja");
+define("PER_HR","po satu");
+define("PROD_HEADER","Proizvodnja");
+define("MULTI_V_HEADER","Sela");
+define("ANNOUNCEMENT","Obaveštenje");
+define("GO2MY_VILLAGE","Idi u moje selo");
+define("VILLAGE_CENTER","Centar sela");
+define("FINISH_GOLD","Završite sve građevinske i istraživačke zadatke u ovom selu odmah za 2 zlata?");
 define("WAITING_LOOP","(waiting loop)");
-define("HRS","(hrs.)");
-define("DONE_AT","done at");
-define("CANCEL","cancel");
-define("LOYALTY","Loyalty");
-define("CALCULATED_IN","Calculated in");
-define("SEVER_TIME","Server time:");
+define("HRS","(sati.)");
+define("DONE_AT","završeno za");
+define("CANCEL","obustavi");
+define("LOYALTY","Lojalnost");
+define("CALCULATED_IN","Završeno za");
+define("SEVER_TIME","Vreme servera:");
 define("HI","HI");
 
 //QUEST
-define("Q_CONTINUE","Continue with the next task.");
-define("Q_REWARD","Your reward:");
-define("Q_BUTN","complete task");
-define("Q0","Welcome to ");
-define("Q0_DESC","As I see you have been made chieftain of this little village. I will be your counselor for the first few days and never leave your (right hand) side.");
-define("Q0_OPT1","To the first task.");
-define("Q0_OPT2","Look around on your own.");
-define("Q0_OPT3","Play no tasks.");
+define("Q_CONTINUE","Nastavite sa sledećim zadatkom.");
+define("Q_REWARD","Vaša nagrada:");
+define("Q_BUTN","završi zadatak");
+define("Q0","Dobrodošli u ");
+define("Q0_DESC","Kao što vidim postali ste poglavica ovog sela. Ja ću biti vaš savetnik prvih nekoliko dana i nikada ne napuštajte svoju (desnu ruku) stranu.");
+define("Q0_OPT1","Na prvi zadatak.");
+define("Q0_OPT2","Pogledajte sami oko Vas.");
+define("Q0_OPT3","Ne igrajte nikakve zadatke.");
 
-define("Q1","Task 1: Woodcutter");
-define("Q1_DESC","There are four green forests around your village. Construct a woodcutter on one of them. Lumber is an important resource for our new settlement.");
-define("Q1_ORDER","Order:<\/p>Construct a woodcutter.");
-define("Q1_RESP","Yes, that way you gain more lumber.I helped a bit and completed the order instantly.");
-define("Q1_REWARD","Woodcutter instantly completed.");
+define("Q1","Zadatak 1: Drvoseča");
+define("Q1_DESC","Oko vašeg sela postoje četiri zelene šume. Izradite drvored na jednom od njih. Drvo je važan resurs za naše novo naselje.");
+define("Q1_ORDER","Zadatak:<\/p>Izgradite sklonište.");
+define("Q1_RESP","Da, na taj način dobijate više od drveta. Pomogao sam malo i završio sam odmah.");
+define("Q1_REWARD","Sklonište odmah završeno.");
 
 define("Q2","Task 2: Crop");
 define("Q2_DESC","Now your subjects are hungry from working all day. Extend a cropland to improve your subjects' supply. Come back here once the building is complete.");
@@ -196,7 +196,7 @@ define("Q11_ORDER","Order:</p>Look for the coordinates of ");
 define("Q11_ORDER1","and enter them here.");
 define("Q11_RESP","Exactly, there ");
 define("Q11_RESP1"," Village! As many resources as you reach this village. Well, almost as much ...");
-define("Q11_BUTN","complete task");
+define("Q11_BUTN","completar misi&oacute;n");
 
 define("Q12","Task 12: Cranny");
 define("Q12_DESC","It's getting time to erect a cranny. The world of <?php echo SERVER_NAME; ?> is dangerous.<br \/><br \/>Many players live by stealing other players' resources. Build a cranny to hide some of your resources from enemies.");
@@ -541,22 +541,22 @@ define("U59","Monster Chief");
 define("U60","Monster Settler");
 
 // RESOURCES
-define("R1","Lumber");
-define("R2","Clay");
-define("R3","Iron");
-define("R4","Crop");
+define("R1","Drvo");
+define("R2","Glina");
+define("R3","Gvožđe");
+define("R4","Žito");
 
 //INDEX.php
-define("LOGIN","Login");
-define("PLAYERS","Players");
+define("LOGIN","Prijavi se");
+define("PLAYERS","Igrača");
 define("MODERATOR","Moderator");
-define("ACTIVE","Active");
-define("ONLINE","Online");
-define("TUTORIAL","Tutorial");
-define("PLAYER_STATISTICS","Player statistics");
-define("TOTAL_PLAYERS","".PLAYERS." in total");
-define("ACTIVE_PLAYERS","Active players");
-define("ONLINE_PLAYERS","".PLAYERS." online");
+define("ACTIVE","Aktivnih");
+define("ONLINE","Na mreži");
+define("TUTORIAL","Tutorijal");
+define("PLAYER_STATISTICS","Statistika igrača");
+define("TOTAL_PLAYERS","".PLAYERS." ukupno igrača");
+define("ACTIVE_PLAYERS","Aktivnih igrača");
+define("ONLINE_PLAYERS","".PLAYERS." na mreži");
 define("MP_STRATEGY_GAME","".SERVER_NAME." - the multiplayer strategy game");
 define("WHAT_IS","".SERVER_NAME." is one of the most popular browser games in the world. As a player in ".SERVER_NAME.", you will build your own empire, recruit a mighty army, and fight with your allies for game world hegemony.");
 define("REGISTER_FOR_FREE","Register here for free!");
@@ -576,71 +576,71 @@ define("LEARN3","View and interact with your surroundings. You can make new frie
 define("LEARN4","Follow your improvement and success and compare yourself to other players. Look at the Top 10 rankings and fight to win a weekly medal.");
 define("LEARN5","Receive detailed reports about your adventures, trades and battles. Don't forget to check the brand new reports about the happenings taking place in your surroundings.");
 define("LEARN6","Exchange information and conduct diplomacy with other players. Always remember that communication is the key to winning new friends and solving old conflicts.");
-define("LOGIN_TO","Log in to ". SERVER_NAME);
-define("REGIN_TO","Register in ". SERVER_NAME);
-define("P_ONLINE","Players online: ");
-define("P_TOTAL","Players in total: ");
-define("CHOOSE","Please choose a server.");
-define("STARTED"," The server started ". round((time()-COMMENCE)/86400) ." days ago.");
+define("LOGIN_TO","Prijavi se na ". SERVER_NAME);
+define("REGIN_TO","Registruj se na ". SERVER_NAME);
+define("P_ONLINE","Igrača na mreži: ");
+define("P_TOTAL","Totalno igrača: ");
+define("CHOOSE","Molimo Vas izaberite server.");
+define("STARTED"," Ovaj server je počeo pre ". round((time()-COMMENCE)/86400) ." dana.");
 
 //ANMELDEN.php
-define("NICKNAME","Nickname");
+define("NICKNAME","Korisničko ime");
 define("EMAIL","Email");
-define("PASSWORD","Password");
-define("ROMANS","Romans");
-define("TEUTONS","Teutons");
-define("GAULS","Gauls");
-define("NW","North West");
-define("NE","North East");
-define("SW","South West");
-define("SE","South East");
-define("RANDOM","random");
-define("ACCEPT_RULES"," I accept the game rules and general terms and conditions.");
-define("ONE_PER_SERVER","Each player may only own ONE account per server.");
-define("BEFORE_REGISTER","Before you register an account you should read the <a href='../anleitung.php' target='_blank'>instructions</a> of Travian ro1 to see the specific advantages and disadvantages of the three tribes.");
-define("BUILDING_UPGRADING","Building:");
-define("HOURS","hours");
+define("PASSWORD","Šifra");
+define("ROMANS","Rimljani");
+define("TEUTONS","Tevtonci");
+define("GAULS","Gali");
+define("NW","Severozapad");
+define("NE","Severoistok");
+define("SW","Jugozapad");
+define("SE","Jugoistok");
+define("RANDOM","Nasumično");
+define("ACCEPT_RULES"," Prihvatam pravila igre i opšte uslove.");
+define("ONE_PER_SERVER","Svaki igrač može imati samo jedan nalog po serveru.");
+define("BEFORE_REGISTER","Pre nego što registrujete račun, trebalo bi da pročitate <a href='../anleitung.php' target='_blank'>Uputstva</a> Traviana 25xSPEED da biste videli specifične prednosti i nedostatke tri plemena.");
+define("BUILDING_UPGRADING","Gradnja:");
+define("HOURS","sati");
 
 
 //ATTACKS ETC.
-define("TROOP_MOVEMENTS","Troop Movements:");
+define("TROOP_MOVEMENTS","Pokreti trupa:");
 define("ARRIVING_REINF_TROOPS","Arriving reinforcing troops");
 define("ARRIVING_ATTACKING_TROOPS","Arriving attacker troops");
 define("ARRIVING_REINF_TROOPS_SHORT","Reinf.");
 define("OWN_ATTACKING_TROOPS","Own attacking troops");
-define("ATTACK","Attack");
+define("ATTACK","Napad");
 define("OWN_REINFORCING_TROOPS","Own reinforcing troops");
-define("TROOPS_DORF","Troops:");
-define("NEWVILLAGE","New vill.");
-define("FOUNDNEWVILLAGE","Founding New village");
-define("UNDERATTACK","The village is under attack");
-define("OASISATTACK","The Oasis is under attack");
+define("TROOPS_DORF","Trupe:");
+define("NEWVILLAGE","Novo Selo");
+define("FOUNDNEWVILLAGE","Osnivanje novog sela");
+define("UNDERATTACK","Selo je pod napadom");
+define("OASISATTACK","Oaza je pod napadom");
 define("OASISATTACKS","Oasis Att.");
 define("RETURNFROM","Return from");
 define("REINFORCEMENTFOR","Reinforcement to");
 define("ATTACK_ON","Attack to");
 define("RAID_ON","Raid to");
-define("SCOUTING","Scouting");
-define("PRISONERS","Prisioners");
-define("PRISONERSIN","Prisioners in");
-define("PRISONERSFROM","Prisioners from");
-define("TROOPS","Troops");
-define("TROOPSFROM","Troops");
+define("SCOUTING","Izviđač");
+define("PRISONERS","Zatvorenici");
+define("PRISONERSIN","Zatvorenici u");
+define("PRISONERSFROM","Zatvorenici iz");
+define("TROOPS","Trupe");
+define("TROOPSFROM","Trupe");
 define("BOUNTY","Bounty");
 define("ARRIVAL","Arrival");
 define("INCOMING_TROOPS","Incoming Troops");
 define("TROOPS_ON_THEIR_WAY","Troops on their way");
 define("OWN_TROOPS","Own troops");
-define("ON","on");
-define("AT","at");
+define("ON","na");
+define("AT","u");
 define("UPKEEP","Upkeep");
-define("SEND_BACK","Send back");
+define("SEND_BACK","Pošalji nazad");
 define("TROOPS_IN_THE_VILLAGE","Troops in the village");
 define("TROOPS_IN_OTHER_VILLAGE","Troops in other village");
 define("TROOPS_IN_OASIS","Troops in oasis");
-define("KILL","Kill");
-define("FROM","From");
-define("SEND_TROOPS","Send troops");
+define("KILL","Ubij");
+define("FROM","Iz");
+define("SEND_TROOPS","Pošalji Trupe");
 define("TASKMASTER","Taskmaster");
 define("VILLAGE_OF_THE_ELDERS_TROOPS","village of the elders troops");
 
@@ -654,7 +654,7 @@ define("TROOP","Troops");
 define("NOTROOP","no troops");
 
 //map
-define("DETAIL","Details");
+define("DETAIL","Detalji");
 define("ABANDVALLEY","Abandoned valley");
 define("UNOCCUOASIS","Unoccupied oasis");
 define("OCCUOASIS","Occupied oasis");
@@ -684,30 +684,30 @@ define("SOUTH","South");
 define("WEST","West");
 
 //other
-define("VILLAGE","Village");
-define("OASIS","Oasis");
-define("PLAYER","Player");
+define("VILLAGE","Selo");
+define("OASIS","Oaza");
+define("PLAYER","Igrač");
 
 //LOGIN.php
-define("COOKIES","You must have cookies enabled to be able to log in. If you share this computer with other people you should log out after each session for your own safety.");
-define("NAME","Name");
-define("PW_FORGOTTEN","Password forgotten?");
-define("PW_REQUEST","Then you can request a new one which will be sent to your email address.");
-define("PW_GENERATE","Generate new password.");
-define("EMAIL_NOT_VERIFIED","Email not verified!");
-define("EMAIL_FOLLOW","Follow this link to activate your account.");
+define("COOKIES","Morate imati omogućene kolačiće da biste se mogli prijaviti. Ako delite ovaj računar sa drugim ljudima, morate se odjaviti nakon svake sesije za sopstvenu sigurnost.");
+define("NAME","Korisničko ime");
+define("PW_FORGOTTEN","Zaboravili ste šifru?");
+define("PW_REQUEST","Možete zatražiti novu šifru. Vreme stizanja emaila je oko 10 MINUTA!");
+define("PW_GENERATE","Generišite novu šifru.");
+define("EMAIL_NOT_VERIFIED","Email nije verifikovan!");
+define("EMAIL_FOLLOW","Pratite link da biste verifikovali nalog.");
 define("VERIFY_EMAIL","Verify Email.");
 define("SERVER_STARTS_IN","Server will start in: ");
 define("START_NOW","START NOW");
 
 
 //404.php
-define("NOTHING_HERE","Nothing here!");
-define("WE_LOOKED","We looked 404 times already but can't find anything");
+define("NOTHING_HERE","Nema ništa ovde!");
+define("WE_LOOKED","Tražili smo 404 puta ali nismo ništa našli!");
 
 //TIME RELATED
-define("CALCULATED","Calculated in");
-define("SERVER_TIME","Server time:");
+define("CALCULATED","Izvršeno za:");
+define("SERVER_TIME","Vreme servera:");
 
 //MASSMESSAGE.php
 define("MASS","Message Content");
@@ -772,7 +772,7 @@ define("UPGRADES_COMMENCE_BLACKSMITH","Upgrades can commence when blacksmith is 
 define("MAXIMUM_LEVEL","Maximum<br>level");
 define("EXPAND_WAREHOUSE","Expand<br>warehouse");
 define("EXPAND_GRANARY","Expand<br>granary");
-define("ENOUGH_RESOURCES","Enough resources");
+define("ENOUGH_RESOURCES","Dovoljno resursa");
 define("CROP_NEGATIVE ","Crop production is negative so you will never reach the required resources");
 define("TOO_FEW_RESOURCES","Too few<br>resources");
 define("UPGRADING","Upgrading");
@@ -934,7 +934,7 @@ define("CELEBRATIONS_IN_PROGRESS","Celebration<br />in progress");
 define("CELEBRATIONS","Celebrations");
 define("TOWNHALL_DESC","You can hold pompous celebrations in the Town Hall. Such a celebration increases your culture points. Building up your Town Hall to a higher level will decrease the length of the celebration.");
 
-define("RESIDENCE","Residence");
+define("RESIDENCE","Boravište");
 define("CAPITAL","This is your capital");
 define("RESIDENCE_TRAIN_DESC","In order to found a new village you need a level 10 or 20 residence and 3 settlers. In order to conquer a new village you need a level 10 or 20 residence and a senator, chief or chieftain.");
 define("PRODUCTION_POINTS","Production of this village:");
@@ -957,7 +957,7 @@ define("RESIDENCE_DESC","The residence is a small palace, where the king or quee
 define("PALACE","Palace");
 define("PALACE_CONSTRUCTION","Palace under construction");
 define("PALACE_TRAIN_DESC","In order to found a new village you need a level 10, 15 or 20 palace and 3 settlers. In order to conquer a new village you need a level 10, 15 or 20 palace and a senator, chief or chieftain.");
-define("CHANGE_CAPITAL","change capital");
+define("CHANGE_CAPITAL","Promeni");
 define("SECURITY_CHANGE_CAPITAL","Are you sure, that you want to change your capital?<br /><b>You can\'t undo this!</b><br />For security you must enter your password to confirm:<br />");
 define("PALACE_DESC","The king or queen of the empire lives in the palace. Only one palace can exist in your realm at a time. You need a palace in order to proclaim a village to be your capital.");
 
@@ -1085,23 +1085,23 @@ define("GREATWORKSHOP","Great Workshop");
 define("TRAINING_COMMENCE_GREATWORKSHOP","Training can commence when great workshop is completed.");
 define("GREATWORKSHOP_DESC","Siege engines like catapults and rams can be built in the great workshop. The higher its level the faster the units are produced.");
 
-define("BUILDING_MAX_LEVEL_UNDER","Building max level under construction");
+define("BUILDING_MAX_LEVEL_UNDER","Izgradnja maksimalnog nivoa u izgradnji");
 define("BUILDING_BEING_DEMOLISHED","Building presently being demolished");
-define("COSTS_UPGRADING_LEVEL","Costs</b> for upgrading to level");
-define("WORKERS_ALREADY_WORK","The workers are already at work.");
-define("CONSTRUCTING_MASTER_BUILDER","Constructing with master builder ");
-define("COSTS","costs");
-define("GOLD","Gold");
-define("WORKERS_ALREADY_WORK_WAITING","The workers are already at work. (waiting loop)");
-define("ENOUGH_FOOD_EXPAND_CROPLAND","Not enough food. Expand cropland.");
-define("UPGRADE_WAREHOUSE","Upgrade Warehouse");
-define("UPGRADE_GRANARY","Upgrade Granary");
+define("COSTS_UPGRADING_LEVEL","Troškovi</b> za nadogradnju do nivoa");
+define("WORKERS_ALREADY_WORK","Radnici su već na poslu.");
+define("CONSTRUCTING_MASTER_BUILDER","Izgradnja sa glavnim graditeljom ");
+define("COSTS","troškovi");
+define("GOLD","Zlato");
+define("WORKERS_ALREADY_WORK_WAITING","Radnici su već na poslu. (loop za čekanje)");
+define("ENOUGH_FOOD_EXPAND_CROPLAND","Nedovoljna hrana. Proširite zemlju.");
+define("UPGRADE_WAREHOUSE","Nadogradite skladište");
+define("UPGRADE_GRANARY","Nadogradite Žitnicu");
 define("YOUR_CROP_NEGATIVE","Your crop production is negative, you will never get the required resources.");
-define("UPGRADE_LEVEL","Upgrade to level ");
-define("WAITING","(waiting loop)");
+define("UPGRADE_LEVEL","Nadogradite na nivo ");
+define("WAITING","(čekanje loop)");
 define("NEED_WWCONSTRUCTION_PLAN","Need WW construction plan");
 define("NEED_MORE_WWCONSTRUCTION_PLAN","Need more WW construction plan");
-define("CONSTRUCT_NEW_BUILDING","Construct new building");
+define("CONSTRUCT_NEW_BUILDING","Izgraditi novi objekat");
 define("SHOWSOON_AVAILABLE_BUILDINGS","show soon available buildings");
 define("HIDESOON_AVAILABLE_BUILDINGS","hide soon available buildings");
 
@@ -1230,25 +1230,25 @@ define("WWVILLAGE","WW village");
 |--------------------------------------------------------------------------
 */
 
-	   $lang['index'][0][1] = "Welcome to " . SERVER_NAME . "";
+	   $lang['index'][0][1] = "Dobrodošli na " . SERVER_NAME . "";
 	   $lang['index'][0][2] = "Manual";
-	   $lang['index'][0][3] = "Play now, for free!";
-	   $lang['index'][0][4] = "What is " . SERVER_NAME . "";
-	   $lang['index'][0][5] = "" . SERVER_NAME . " is a <b>browser game</b> featuring an engaging ancient world with thousands of other real players.</p><p>It`s <strong>free to play</strong> and requires <strong>no downloads</strong>.";
-	   $lang['index'][0][6] = "Click here to play " . SERVER_NAME . "";
-	   $lang['index'][0][7] = "Total players";
-	   $lang['index'][0][8] = "Players active";
-	   $lang['index'][0][9] = "Players online";
-	   $lang['index'][0][10] = "About the game";
-	   $lang['index'][0][11] = "You will begin as the chief of a tiny village and will embark on an exciting quest.";
-	   $lang['index'][0][12] = "Build up villages, wage wars or establish trade routes with your neighbours.";
-	   $lang['index'][0][13] = "Play with and against thousands of other real players and conquer the the world of Travian.";
+	   $lang['index'][0][3] = "Igraj sada, besplatno!";
+	   $lang['index'][0][4] = "Šta je " . SERVER_NAME . "";
+	   $lang['index'][0][5] = "" . SERVER_NAME . " je <b>browser igra</b> sa angažovanim drevnim svetom sa hiljadama drugih pravih igrača.</p><p>To je <strong>free to play</strong> igra i ne zahteva <strong>skidanje programa</strong>.";
+	   $lang['index'][0][6] = "Kliknite ovde da igrate " . SERVER_NAME . "";
+	   $lang['index'][0][7] = "Totalno igrača";
+	   $lang['index'][0][8] = "Aktivnih igrača";
+	   $lang['index'][0][9] = "Na mreži";
+	   $lang['index'][0][10] = "O Igri";
+	   $lang['index'][0][11] = "Počećete kao šef malog sela i krenete u uzbudljivu potragu.";
+	   $lang['index'][0][12] = "Izgradite sela, ratne ratove ili uspostavite trgovinske puteve sa svojim susedima.";
+	   $lang['index'][0][13] = "Igrajte sa i protiv hiljada drugih pravih igrača i osvojite svet Traviana.";
 	   $lang['index'][0][14] = "News";
 	   $lang['index'][0][15] = "FAQ";
 	   $lang['index'][0][16] = "Screenshots";
 	   $lang['forum'] = "Forum";
-	   $lang['register'] = "Register";
-	   $lang['login'] = "Login";
+	   $lang['register'] = "Registruj se";
+	   $lang['login'] = "Prijavi se";
 	   $lang['screenshots']['title1']="Village";
 	   $lang['screenshots']['desc1']="Village building";
            $lang['screenshots']['title2']="Resource";
@@ -1262,7 +1262,7 @@ define("WWVILLAGE","WW village");
            $lang['screenshots']['title6']="Statistics";
            $lang['screenshots']['desc6']="View your ranking in statistics";
            $lang['screenshots']['title7']="Weapons or dough";
-           $lang['screenshots']['desc7']="You can choose to play as military or economy";
-
+           $lang['screenshots']['desc7']="You can choose to play as military or economy";  
+    
 
 ?>
