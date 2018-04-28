@@ -71,7 +71,7 @@ $database->updateUserField($session->uid,gpack,$_POST["custom_url"],1);
             </tr>
         </tbody>
     </table>
-    <p class="btn"><input type="image" alt="OK" src="img/x.gif" name="gp_selection_button" value="ok" class="dynamic_img" id="btn_ok" /></p>
+    <p class="btn"><button alt="OK" name="gp_selection_button" value="ok" class="trav_buttons" id="btn_ok" /> Ok </button></p>
     </form>
 
 
