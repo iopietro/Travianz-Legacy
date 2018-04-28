@@ -38,7 +38,7 @@ include("alli_menu.tpl");
 					<input type="hidden" name="o" value="2">
 					<input type="hidden" name="s" value="5">
 					<input type="hidden" name="a" value="2">                    
-					<button value="ok" name="s1" id="btn_ok" class="trav_buttons" src="img/x.gif" alt="OK" /> Ok </button>
+					<button value="ok" name="s1" id="btn_ok" class="trav_buttons" alt="OK" /> Ok </button>
 				</p>
 			</form>
 			<p class="error"><?php echo $form->getError("perm"); ?></p>
