@@ -1,4 +1,3 @@
-[![Code Triagers Badge](https://www.codetriage.com/iopietro/travianz/badges/users.svg)](https://www.codetriage.com/iopietro/travianz)
 [![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/iopietro/TravianZ)
 [![GitHub Release](https://img.shields.io/github/release/iopietro/TravianZ/all.svg)](https://github.com/iopietro/TravianZ)
 [![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://github.com/iopietro/TravianZ)
@@ -23,7 +22,7 @@ TravianZ Version **v.8.3.4**
 since the installer logic has changed and you would just crash your old version
 
 **Quick links:**
-* [Download and Updates](https://github.com/iopietro/TravianZ) &raquo;&raquo; https://github.com/Shadowss/TravianZ
+* [Download and Updates](https://github.com/iopietro/TravianZ) &raquo;&raquo; https://github.com/iopietro/TravianZ
 * [Wiki](https://github.com/iopietro/TravianZ/wiki)
 * [Game Mechanics](http://travian.wikia.com/wiki/Travian_Wiki)
 
