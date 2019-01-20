@@ -16,6 +16,9 @@
 ======
 TravianZ Version **v.8.3.4**
 ======
+
+**THIS VERSION WILL BECOME "LEGACY" AS WE ARE REWRITING SCRIPT FROM SCRATCH - PLEASE JOIN OUR DISCORD TO GET MORE INFO**
+
 **Note:** this game is still in a pre-release state, although at this point it is very playable, tested and found to be fairly stable
 
 **WARNING:** please note that ***this is in no way an upgrade*** from the old 8.3.2 version, so please ***do not try to just copy your files over***, 
