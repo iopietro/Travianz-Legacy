@@ -1,11 +1,10 @@
+[![Join the our Discord](https://user-images.githubusercontent.com/7288322/34429152-141689f8-ecb9-11e7-8003-b5a10a5fcb29.png)](https://discord.gg/2PufRFH)
 [![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/iopietro/TravianZ)
 [![GitHub Release](https://img.shields.io/github/release/iopietro/TravianZ/all.svg)](https://github.com/iopietro/TravianZ)
 [![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://github.com/iopietro/TravianZ)
 [![GitHub contributors](https://img.shields.io/github/contributors/iopietro/TravianZ.svg)](https://github.com/iopietro/TravianZ)
 [![license](https://img.shields.io/github/license/iopietro/TravianZ.svg)](https://github.com/iopietro/TravianZ)
 [![GitHub last commit](https://img.shields.io/github/last-commit/iopietro/TravianZ.svg)](https://github.com/iopietro/TravianZ)
-[![Proudly Coded in PHPStorm](https://img.shields.io/badge/coded%20in-PHPStorm-BD5CF3.svg)](https://www.jetbrains.com/buy/opensource/?product=phpstorm)
-[![Join the our Discord](https://badges.gitter.im/TravianZ-V8/Lobby.svg)](https://discord.gg/2PufRFH)
 [![Watch how this was made on YouTube](https://img.shields.io/badge/The%20making%20of...-YouTube-FF0000.svg)](https://www.youtube.com/watch?v=1XiHhpGUmQg&list=PLzV5avt1FFHorlIeoL9YX0pdb9bj-FO84)
 ======
 [![GitHub forks](https://img.shields.io/github/forks/badges/shields.svg?style=social&label=Fork)](https://github.com/iopietro/TravianZ)
@@ -30,7 +29,7 @@ since the installer logic has changed and you would just crash your old version
 * [Game Mechanics](http://travian.wikia.com/wiki/Travian_Wiki)
 
 **Minimum requirements:**
-* [PHP](http://php.net/) 7.1.0+
+* [PHP](http://php.net/) 7.0.0+
 * [MySQL Community Server](https://dev.mysql.com/downloads/mysql/) 5.5+
   * or alternatively, [MariaDB](https://downloads.mariadb.org/) 5.5+
   * please see also the compatibility notes on [this Wiki page](https://github.com/iopietro/TravianZ/wiki/Known-Bugs)
