@@ -1289,7 +1289,7 @@ class MYSQLi_DB implements IDbConnection {
                     $daysPassedFromStart = ($time - strtotime(START_DATE) - strtotime(date('d.m.Y')) + strtotime(START_TIME)) / 86400;
 
                     $radiusMin = min(round(pow(2 * ($daysPassedFromStart / 5 * SPEED), 2)), round(pow(WORLD_MAX * 0.8, 2)) + round(pow(WORLD_MAX * 0.8, 2)));
-                    $radiusMax = min(round(pow(4 * ($daysPassedFromStart / 5 * SPEED), 2)), pow(WORLD_MAX, 2) + pow(WORLD_MAX, 2));
+                    $radiusMax = min(round(pow(4 * ($daysPassedFromStart / 5 * SPEED), 2)) + pow($count, 2), pow(WORLD_MAX, 2) + pow(WORLD_MAX, 2));
                     break;
                     
                 case 1:
@@ -1320,19 +1320,19 @@ class MYSQLi_DB implements IDbConnection {
             }
 
             switch($sector){
-                case 1: $sector = "x <= 0 AND y >= 0"; break; // - | +       
-                case 2: $sector = "x >= 0 AND y >= 0"; break; // + | +                   
-                case 3: $sector = "x <= 0 AND y <= 0"; break; // - | -            
-                default: $sector = "x >= 0 AND y <= 0"; // + | -                 
+                case 1: $newSector = "x <= 0 AND y >= 0"; break; // - | +       
+                case 2: $newSector = "x >= 0 AND y >= 0"; break; // + | +                   
+                case 3: $newSector = "x <= 0 AND y <= 0"; break; // - | -            
+                default: $newSector = "x >= 0 AND y <= 0"; // + | -                 
             }
 
             //Choose villages beetween two circumferences, by using their formula (x^2 + y^2 = r^2)
-            $q = "SELECT id FROM ".TB_PREFIX."wdata WHERE fieldtype = 3 AND ($sector) AND (POWER(x, 2) + POWER(y, 2) >= $radiusMin AND POWER(x, 2) + POWER(y, 2) <= $radiusMax) AND occupied = 0 ORDER BY RAND() LIMIT $numberOfVillages";
+            $q = "SELECT id FROM ".TB_PREFIX."wdata WHERE fieldtype = 3 AND ($newSector) AND (POWER(x, 2) + POWER(y, 2) >= $radiusMin AND POWER(x, 2) + POWER(y, 2) <= $radiusMax) AND occupied = 0 ORDER BY RAND() LIMIT $numberOfVillages";
             $result = mysqli_query($this->dblink, $q);
-            
+
             //Prevent an infinite loop
             $resultedRows = mysqli_num_rows($result);
-            if($resultedRows == 0 && $count >= 20) break;
+            if($resultedRows == 0 && $count >= WORLD_MAX * 2) break;
             
             //Fill the villages array
             $villages = array_merge($villages, $this->mysqli_fetch_all($result));
@@ -1343,7 +1343,7 @@ class MYSQLi_DB implements IDbConnection {
             
             //If there are no more free cells in that sector, it have to be changed
             //This instruction will be used only (in the next cicle(s)) if not all wids have been generated yet
-            $sector = rand(1, 4);
+            if ($count > intval(WORLD_MAX / 10)) $sector = rand(1, 4);
         }
 
         foreach($villages as $village) $wids[] = $village['id'];
