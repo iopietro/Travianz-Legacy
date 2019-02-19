@@ -785,9 +785,13 @@ class MYSQLi_DB implements IDbConnection {
 
 	// no need to cache this method
 	public function hasBeginnerProtection($vid) {
-        list($vid) = $this->escape_input($vid);
-
-        $q = "SELECT u.protect FROM ".TB_PREFIX."users u,".TB_PREFIX."vdata v,".TB_PREFIX."odata o WHERE (u.id = v.owner AND v.wref = ".(int) $vid.") OR (u.id = o.owner AND o.wref = ".(int) $vid.") LIMIT 1";
+        list($vid) = $this->escape_input((int) $vid);
+        $q = "SELECT u.protect 
+              FROM s1_users u 
+              JOIN s1_vdata v ON u.id = v.owner
+              JOIN s1_odata o ON u.id = o.owner
+              WHERE v.wref = ". $vid ." OR o.wref = ". $vid . " 
+              LIMIT 1";
 		$result = mysqli_query($this->dblink,$q);
 		$dbarray = mysqli_fetch_array($result);
 		
