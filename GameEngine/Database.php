@@ -787,9 +787,9 @@ class MYSQLi_DB implements IDbConnection {
 	public function hasBeginnerProtection($vid) {
         list($vid) = $this->escape_input((int) $vid);
         $q = "SELECT u.protect 
-              FROM ". TB_PREFIX ."_users u 
-              JOIN ". TB_PREFIX ."_vdata v ON u.id = v.owner
-              JOIN ". TB_PREFIX ."_odata o ON u.id = o.owner
+              FROM ". TB_PREFIX ."users u 
+              JOIN ". TB_PREFIX ."vdata v ON u.id = v.owner
+              JOIN ". TB_PREFIX ."odata o ON u.id = o.owner
               WHERE v.wref = ". $vid ." OR o.wref = ". $vid . " 
               LIMIT 1";
 		$result = mysqli_query($this->dblink,$q);
