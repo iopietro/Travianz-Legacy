@@ -329,7 +329,7 @@ class Building {
 	}
 
 	private function removeBuilding($d) {
-		global $database, $village;
+		global $database, $village, $session;
 		foreach($this->buildArray as $jobs) {
 			if($jobs['id'] == $d) {
 				$uprequire = $this->resourceRequired($jobs['field'], $jobs['type']);
