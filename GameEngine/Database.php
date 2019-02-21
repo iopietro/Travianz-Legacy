@@ -4731,12 +4731,12 @@ References: User ID/Message ID, Mode
 		$time = time();
 		$newTime = $loopTime = 0;
 		if(empty($fieldsArray)) $fieldsArray = $this->getResourceLevel($wid);
-		$jobs = $this->getJobs($wid);
+		$jobs = $this->getJobsOrderByID($wid);
 		
 		//Search the job which needs to be deleted	
 		foreach($jobs as $job){	
 			//We need to modify waiting loop orders
-			if(!empty($jobToDelete) && $job['loopcon'] == 1 && ($tribe != 1 || $tribe == 1 && (($jobToDelete['field'] <= 18 && $job['field'] <= 18) ||  ($jobToDelete['field'] >= 19 && $job['field'] >= 19)))){
+			if(!empty($jobToDelete) && $job['loopcon'] == 1 && ($tribe != 1 || ($tribe == 1 && (($jobToDelete['field'] <= 18 && $job['field'] <= 18) || ($jobToDelete['field'] >= 19 && $job['field'] >= 19))))){
 				
 				//Does this job have the same field of the deleted one?
 				$sameBuilding = $jobToDelete['field'] == $job['field'] ? 1 : 0;
@@ -5265,7 +5265,7 @@ References: User ID/Message ID, Mode
         else mysqli_query($this->dblink, $q = "UPDATE " .TB_PREFIX. "bdata SET level = level - $levels[1] + $levels[0] WHERE wid = $wid AND field = $field");
     }
     
-    private function getBData($wid, $use_cache = true) {
+    private function getBData($wid, $use_cache = true, $orderByID = false) {
 	    $wid = (int) $wid;
 
         // first of all, check if we should be using cache and whether the field
@@ -5276,7 +5276,7 @@ References: User ID/Message ID, Mode
             return self::$buildingsUnderConstructionCache[$wid];
         }
 
-        $q = "SELECT * FROM " . TB_PREFIX . "bdata where wid = $wid order by master,timestamp ASC";
+        $q = "SELECT * FROM " . TB_PREFIX . "bdata where wid = $wid order by ".(!$orderByID ? "master,timestamp" : "id")." ASC";
         $result = $this->mysqli_fetch_all(mysqli_query($this->dblink,$q));
 
         self::$buildingsUnderConstructionCache[$wid] = $result;
@@ -5286,6 +5286,10 @@ References: User ID/Message ID, Mode
     // do not cache output, as building jobs can change when using instant build (PLUS) etc.
 	function getJobs($wid) {
 	    return $this->getBData($wid, false);
+	}
+	
+	function getJobsOrderByID($wid) {
+	    return $this->getBData($wid, false, true);
 	}
 
 	function FinishWoodcutter($wid) {
