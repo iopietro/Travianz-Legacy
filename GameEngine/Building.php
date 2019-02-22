@@ -816,8 +816,6 @@ class Building {
 
         $q = "UPDATE ".TB_PREFIX."vdata set cp = $cpTot where wref = $vid";
         mysqli_query($database->dblink,$q);
-
-        return $cpTot;
     }
 	
     public static function buildingCP($f, $lvl){
