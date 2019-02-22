@@ -104,34 +104,13 @@ class Automation {
 			if($building) $popTot += $this->buildingPOP($building, $lvl);
         }
         
-        $this->recountCP($vid);
+        Building::recountCP($database, $vid);
 		$q = "UPDATE ".TB_PREFIX."vdata set pop = $popTot where wref = $vid";
 		mysqli_query($database->dblink, $q);
 		$owner = $database->getVillageField($vid, "owner");
 		$this->procClimbers($owner);
 
         return $popTot;
-    }
-
-    function recountCP($vid){
-        global $database;
-        
-        $vid = (int) $vid;
-        $fdata = $database->getResourceLevel($vid);
-        $cpTot = 0;
-
-        for ($i = 1; $i <= 40; $i++) {
-            $lvl = $fdata["f".$i];
-            $building = $fdata["f".$i."t"];
-            if($building){
-                $cpTot += $this->buildingCP($building,$lvl);
-            }
-        }
-
-        $q = "UPDATE ".TB_PREFIX."vdata set cp = $cpTot where wref = $vid";
-        mysqli_query($database->dblink,$q);
-
-        return $cpTot;
     }
 
     function buildingPOP($f, $lvl){
@@ -145,15 +124,6 @@ class Automation {
             $popT += ((isset($dataarray[$i]) && isset($dataarray[$i]['pop'])) ? $dataarray[$i]['pop'] : 0);
         }
         return $popT;
-    }
-
-    function buildingCP($f, $lvl){
-        $name = "bid".$f;
-        global $$name;
-
-        $dataarray = $$name;
-
-        return ((isset($dataarray[$lvl]) && isset($dataarray[$lvl]['cp'])) ? $dataarray[$lvl]['cp'] : 0);
     }
 
     private function loyaltyRegeneration() {
