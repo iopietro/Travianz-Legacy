@@ -118,20 +118,20 @@ class Automation {
         
         $vid = (int) $vid;
         $fdata = $database->getResourceLevel($vid);
-        $popTot = 0;
+        $cpTot = 0;
 
         for ($i = 1; $i <= 40; $i++) {
             $lvl = $fdata["f".$i];
             $building = $fdata["f".$i."t"];
             if($building){
-                $popTot += $this->buildingCP($building,$lvl);
+                $cpTot += $this->buildingCP($building,$lvl);
             }
         }
 
-        $q = "UPDATE ".TB_PREFIX."vdata set cp = $popTot where wref = $vid";
+        $q = "UPDATE ".TB_PREFIX."vdata set cp = $cpTot where wref = $vid";
         mysqli_query($database->dblink,$q);
 
-        return $popTot;
+        return $cpTot;
     }
 
     function buildingPOP($f, $lvl){
@@ -150,14 +150,10 @@ class Automation {
     function buildingCP($f, $lvl){
         $name = "bid".$f;
         global $$name;
-        
-        $popT = 0;
+
         $dataarray = $$name;
 
-        for ($i = 0; $i <= $lvl; $i++) {
-            $popT += ((isset($dataarray[$i]) && isset($dataarray[$i]['cp'])) ? $dataarray[$i]['cp'] : 0);
-        }
-        return $popT;
+        return ((isset($dataarray[$lvl]) && isset($dataarray[$lvl]['cp'])) ? $dataarray[$lvl]['cp'] : 0);
     }
 
     private function loyaltyRegeneration() {
