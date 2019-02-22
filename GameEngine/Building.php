@@ -749,7 +749,6 @@ class Building {
                         
                         if (!isset($exclude_master) && $database->query($q) && ($enought_res == 1 || $jobs['master'] == 0)) {
                             $database->modifyPop($jobs['wid'],$resource['pop'],0);
-                            $database->addCP($jobs['wid'],$resource['cp']);
                             $deletIDs[] = (int) $jobs['id'];
                             if($jobs['type'] == 18) {
                                 $owner = $database->getVillageField($jobs['wid'],"owner");
@@ -796,10 +795,40 @@ class Building {
             }
         }
         
+	self::recountCP($database, $village->wid);
+	    
         header("Location: ".($redirect_url ? $redirect_url : $session->referrer));
         exit;
     }
 
+    public static function recountCP($database, $vid){        
+        $vid = (int) $vid;
+        $fdata = $database->getResourceLevel($vid);
+        $cpTot = 0;
+
+        for ($i = 1; $i <= 40; $i++) {
+            $lvl = $fdata["f".$i];
+            $building = $fdata["f".$i."t"];
+            if($building){
+                $cpTot += self::buildingCP($building,$lvl);
+            }
+        }
+
+        $q = "UPDATE ".TB_PREFIX."vdata set cp = $cpTot where wref = $vid";
+        mysqli_query($database->dblink,$q);
+
+        return $cpTot;
+    }
+	
+    public static function buildingCP($f, $lvl){
+        $name = "bid".$f;
+        global $$name;
+
+        $dataarray = $$name;
+
+        return ((isset($dataarray[$lvl]) && isset($dataarray[$lvl]['cp'])) ? $dataarray[$lvl]['cp'] : 0);
+    }
+	
 	public function resourceRequired($id, $tid, $plus = 1) {
 		$name = "bid".$tid;
 		global $$name, $village, $bid15, $database;
