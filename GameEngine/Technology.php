@@ -252,18 +252,9 @@ class Technology {
 			}
 		}
 		if($mode == 0){
-		    $enforceoasis = $database->getOasisEnforce($base, 0, $useCache);
+			$enforceoasis = $database->getOasisEnforce($base, 1, $useCache);
 			if(count($enforceoasis) > 0){
 				foreach($enforceoasis as $enforce){
-					for($i = 1; $i <= 50; $i++){
-						$ownunit['u' . $i] += $enforce['u' . $i];
-					}
-					$ownunit['hero'] += $enforce['hero'];
-				}
-			}
-			$enforceoasis1 = $database->getOasisEnforce($base, 1, $useCache);
-			if(count($enforceoasis1) > 0){
-				foreach($enforceoasis1 as $enforce){
 					for($i = 1; $i <= 50; $i++){
 						$ownunit['u' . $i] += $enforce['u' . $i];
 					}
