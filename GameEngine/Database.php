@@ -7789,7 +7789,12 @@ References: User ID/Message ID, Mode
 
 	function addSlotFarm($lid, $towref, $x, $y, $distance, $t1, $t2, $t3, $t4, $t5, $t6) {
         list($lid, $towref, $x, $y, $distance, $t1, $t2, $t3, $t4, $t5, $t6) = $this->escape_input($lid, $towref, $x, $y, $distance, $t1, $t2, $t3, $t4, $t5, $t6);
-
+        
+	for($i = 1; $i <= 6; $i++) {
+            if (${'t'.$i} == '') {
+                ${'t'.$i} = 0;
+            }
+        }
 		$q = "INSERT INTO " . TB_PREFIX . "raidlist (`lid`, `towref`, `x`, `y`, `distance`, `t1`, `t2`, `t3`, `t4`, `t5`, `t6`) VALUES ('$lid', '$towref', '$x', '$y', '$distance', '$t1', '$t2', '$t3', '$t4', '$t5', '$t6')";
 		return mysqli_query($this->dblink,$q);
 	}
