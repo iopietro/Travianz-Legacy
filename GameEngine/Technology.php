@@ -495,10 +495,14 @@ class Technology {
 					$each = round(($bid19[$building->getTypeLevel(36)]['attri'] / 100) * ${'u'.$unit}['time'] / SPEED);
 			}	
 			if($unit % 10 == 0 || $unit % 10 == 9 && $unit != 99) {
-			    $slots = $database->getAvailableExpansionTraining();
-			    if($unit % 10 == 0 && $slots['settlers'] <= $amt) $amt = $slots['settlers'];
-			    if($unit % 10 == 9 && $slots['chiefs'] <= $amt) $amt = $slots['chiefs'];
-			} else {
+				if($this->maxUnit($unit, $great) < $amt) $amt = 0;
+				else
+				{
+			   		$slots = $database->getAvailableExpansionTraining();
+			   		if($unit % 10 == 0 && $slots['settlers'] <= $amt) $amt = $slots['settlers'];
+			   		if($unit % 10 == 9 && $slots['chiefs'] <= $amt) $amt = $slots['chiefs'];
+				}
+			}else{
 			    if($unit != 99){
 			        if($this->maxUnit($unit, $great) < $amt) $amt = 0;
 			    }else{
