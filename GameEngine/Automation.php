@@ -2608,7 +2608,7 @@ class Automation {
 
                 if($data['from'] == 0){
 					$DefenderID = $database->getVillageField($data['to'], "owner");
-					$database->addEnforce($data);
+					$database->addEnforce(['from' => $data['from'], 'to' => $data['to'], 't1' => 0, 't2' => 0, 't3' => 0, 't4' => 0, 't5' => 0, 't6' => 0, 't7' => 0, 't8' => 0, 't9' => 0, 't10' => 0, 't11' => 0]);
 					$reinf = $database->getEnforce($data['to'], $data['from']);
 					$database->modifyEnforce($reinf['id'], 31, 1, 1);
 					$data_fail = '0,0,4,1,0,0,0,0,0,0,0,0,0,0';
