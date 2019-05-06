@@ -1,5 +1,5 @@
 [![Join the our Discord](https://user-images.githubusercontent.com/7288322/34429152-141689f8-ecb9-11e7-8003-b5a10a5fcb29.png)](https://discord.gg/2PufRFH)
-[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/iopietro/TravianZ)
+[![Maintenance](https://img.shields.io/maintenance/yes/2019.svg)](https://github.com/iopietro/TravianZ)
 [![GitHub Release](https://img.shields.io/github/release/iopietro/TravianZ/all.svg)](https://github.com/iopietro/TravianZ)
 [![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://github.com/iopietro/TravianZ)
 [![GitHub contributors](https://img.shields.io/github/contributors/iopietro/TravianZ.svg)](https://github.com/iopietro/TravianZ)
@@ -13,7 +13,7 @@
 [![GitHub followers](https://img.shields.io/github/followers/espadrine.svg?style=social&label=Follow)](https://github.com/iopietro/TravianZ)
 [![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/cata7007)
 ======
-TravianZ Version **v.8.3.4**
+TravianZ Version **v.8.3.5**
 ======
 
 **THIS VERSION WILL BECOME "LEGACY" AS WE ARE REWRITING SCRIPT FROM SCRATCH - PLEASE JOIN OUR DISCORD TO GET MORE INFO**
