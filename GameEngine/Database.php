@@ -7164,22 +7164,16 @@ References: User ID/Message ID, Mode
 			}
 		}
 
-		$q = "SELECT (u10+u20+u30) FROM " . TB_PREFIX . "enforcement WHERE `from` = ".(int) $village->wid;
+		$q = "SELECT (u10+u20+u30) as sumsettlers FROM " . TB_PREFIX . "enforcement WHERE `from` = ".(int) $village->wid;
 		$result = mysqli_query($this->dblink,$q);
-		$row = mysqli_fetch_row($result);
-		if(!empty($row)) {
-			foreach($row as $reinf) {
-				$settlers += $reinf[0];
-			}
+		while($settlersrow = mysqli_fetch_array($result)) {
+		    $settlers += $settlersrow["sumsettlers"];
 		}
 
-		$q = "SELECT (u9+u19+u29) FROM " . TB_PREFIX . "enforcement WHERE `from` = ".(int) $village->wid;
+		$q = "SELECT (u9+u19+u29) as sumchiefs FROM " . TB_PREFIX . "enforcement WHERE `from` = ".(int) $village->wid;
 		$result = mysqli_query($this->dblink,$q);
-		$row = mysqli_fetch_row($result);
-		if(!empty($row)) {
-			foreach($row as $reinf) {
-				$chiefs += $reinf[0];
-			}
+		while($chiefsrow = mysqli_fetch_array($result)) {
+		    $chiefs += $chiefsrow["sumchiefs"];
 		}
 
 		$trainlist = $technology->getTrainingList(4);
